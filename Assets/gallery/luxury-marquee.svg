@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1066">
+  <defs>
+    <linearGradient id="grad6" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#021221" />
+      <stop offset="50%" stop-color="#123d6b" />
+      <stop offset="100%" stop-color="#ffe7b3" />
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1066" fill="url(#grad6)" />
+  <g opacity="0.3" fill="#fff6d5">
+    <circle cx="360" cy="260" r="200" />
+    <circle cx="820" cy="180" r="240" />
+    <circle cx="1240" cy="320" r="200" />
+  </g>
+  <g fill="#fff8e1" opacity="0.75">
+    <path d="M160 780l200-260 200 260z" />
+    <path d="M420 780l200-320 200 320z" />
+    <path d="M680 780l200-280 200 280z" />
+    <path d="M940 780l200-320 200 320z" />
+    <path d="M1200 780l200-260 200 260z" />
+  </g>
+  <rect x="220" y="780" width="1160" height="80" rx="40" fill="#fff4cc" opacity="0.85" />
+  <text x="140" y="180" font-family="'Playfair Display', serif" font-size="118" fill="#fff8e1" opacity="0.9">
+    Luxury marquee
+  </text>
+  <text x="140" y="270" font-family="'DM Sans', sans-serif" font-size="60" fill="#fff2c4" opacity="0.78">
+    Private Estate, Tigoni
+  </text>
+</svg>
