@@ -8,19 +8,88 @@
       name="description"
       content="Shelter Sky Events creates elevated wedding, corporate, and private event experiences in Nairobi with full-service planning, rentals, and styling."
     />
+    <meta name="keywords" content="event planners Nairobi, tent rentals Nairobi, chair rentals Nairobi, Shelter Sky Events, event decor Kenya" />
+    <meta name="author" content="Shelter Sky Events" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#0f8b6c" />
+    <link rel="canonical" href="https://shelterskyevents.com/" />
+    <meta name="geo.region" content="KE-30" />
+    <meta name="geo.placename" content="Nairobi County" />
+    <meta name="geo.position" content="-1.2921;36.8219" />
+    <meta name="ICBM" content="-1.2921, 36.8219" />
     <meta property="og:title" content="Shelter Sky Events | Nairobi Event Planners &amp; Rentals" />
     <meta
       property="og:description"
       content="Turn any space into a celebration. We plan, style, and furnish weddings, corporate functions, and private parties across Nairobi."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/og-shelter-sky.jpg" />
+    <meta property="og:site_name" content="Shelter Sky Events" />
+    <meta property="og:url" content="https://shelterskyevents.com/" />
+    <meta property="og:locale" content="en_KE" />
+    <meta property="og:image" content="Assets/gallery/photos/Event1_Image1.JPG" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Shelter Sky Events | Nairobi Event Planners &amp; Rentals" />
+    <meta
+      name="twitter:description"
+      content="Turn any space into a celebration with Shelter Sky Events – Nairobi's trusted team for tents, chairs, and décor."
+    />
+    <meta name="twitter:image" content="Assets/gallery/photos/Event1_Image1.JPG" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@600&display=swap"
       rel="stylesheet"
     />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": ["LocalBusiness", "ProfessionalService"],
+        "name": "Shelter Sky Events",
+        "image": "https://shelterskyevents.com/Assets/gallery/photos/Event1_Image1.JPG",
+        "url": "https://shelterskyevents.com/",
+        "description": "Shelter Sky Events delivers full-service event planning, curated tenting, comfortable seating, and bespoke décor experiences across Nairobi County.",
+        "email": "bookings@shelterskyevents.com",
+        "telephone": "+254724016269",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Nairobi",
+          "addressRegion": "Nairobi County",
+          "addressCountry": "KE"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Nairobi County, Kenya"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": -1.2921,
+          "longitude": 36.8219
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday"
+            ],
+            "opens": "08:00",
+            "closes": "18:00"
+          }
+        ],
+        "priceRange": "KES 50,000 - 500,000",
+        "serviceType": [
+          "Event planning",
+          "Tent rentals",
+          "Chair rentals",
+          "Event decor styling"
+        ],
+        "sameAs": ["https://wa.me/254724016269"]
+      }
+    </script>
     <style>
       :root {
         color-scheme: light dark;
@@ -39,6 +108,10 @@
         --radius: 22px;
         --max-width: min(1180px, 94vw);
         --transition: 220ms ease;
+        --input-bg: color-mix(in srgb, var(--bg) 75%, var(--surface-strong) 25%);
+        --input-bg-contrast: color-mix(in srgb, var(--bg) 55%, var(--surface-strong) 45%);
+        --input-text: color-mix(in srgb, var(--text) 85%, #0e1727 15%);
+        --input-placeholder: color-mix(in srgb, var(--muted) 82%, var(--text) 18%);
       }
 
       :root[data-theme="light"] {
@@ -54,6 +127,10 @@
         --brand-2: #3055ff;
         --accent: #ff9f47;
         --shadow: 0 20px 36px rgba(21, 45, 70, 0.18);
+        --input-bg: rgba(255, 255, 255, 0.98);
+        --input-bg-contrast: rgba(255, 255, 255, 0.92);
+        --input-text: color-mix(in srgb, var(--text) 94%, #ffffff 6%);
+        --input-placeholder: color-mix(in srgb, var(--muted) 82%, var(--text) 18%);
       }
 
       @media (prefers-color-scheme: light) {
@@ -70,6 +147,10 @@
           --brand-2: #3055ff;
           --accent: #ff9f47;
           --shadow: 0 20px 36px rgba(21, 45, 70, 0.18);
+          --input-bg: rgba(255, 255, 255, 0.98);
+          --input-bg-contrast: rgba(255, 255, 255, 0.92);
+          --input-text: color-mix(in srgb, var(--text) 94%, #ffffff 6%);
+          --input-placeholder: color-mix(in srgb, var(--muted) 82%, var(--text) 18%);
         }
       }
 
@@ -91,6 +172,10 @@
           radial-gradient(circle at 50% 90%, rgba(255, 188, 113, 0.2), transparent 45%);
         min-height: 100vh;
         scroll-behavior: smooth;
+      }
+
+      body.nav-open {
+        overflow: hidden;
       }
 
       .page {
@@ -390,6 +475,12 @@
       .testimonials-note {
         margin-bottom: clamp(24px, 5vw, 32px);
         max-width: 540px;
+      }
+
+      .testimonial-sample-note {
+        margin: 0;
+        font-size: 0.85rem;
+        color: var(--muted);
       }
 
       .card {
@@ -843,13 +934,67 @@
         align-items: stretch;
       }
 
-      .contact-info,
-      .contact-form {
+      .contact-info {
+        position: relative;
+        padding: clamp(8px, 2vw, 12px);
+      }
+
+      .contact-info-pane {
+        display: grid;
+        gap: clamp(18px, 3vw, 28px);
         border-radius: var(--radius);
-        border: 1px solid var(--border);
-        background: var(--surface);
+        border: 1px solid color-mix(in srgb, var(--border) 82%, var(--brand) 18%);
+        background: linear-gradient(
+          160deg,
+          color-mix(in srgb, var(--surface) 88%, var(--brand) 12%),
+          color-mix(in srgb, var(--surface-strong) 82%, transparent 18%)
+        );
         padding: clamp(26px, 4vw, 36px);
         box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .contact-info-pane::before {
+        content: "";
+        position: absolute;
+        inset: -40% auto auto -40%;
+        width: 140px;
+        height: 140px;
+        background: radial-gradient(
+          circle at center,
+          color-mix(in srgb, var(--brand) 46%, transparent 54%),
+          transparent 70%
+        );
+        opacity: 0.7;
+        pointer-events: none;
+      }
+
+      .contact-info-pane::after {
+        content: "";
+        position: absolute;
+        inset: auto -30% -40% auto;
+        width: 160px;
+        height: 160px;
+        background: radial-gradient(
+          circle at center,
+          color-mix(in srgb, var(--brand-2) 38%, transparent 62%),
+          transparent 68%
+        );
+        opacity: 0.65;
+        pointer-events: none;
+      }
+
+      .contact-info h3 {
+        margin: 0;
+        font-size: clamp(1.4rem, 2.6vw, 1.7rem);
+        letter-spacing: 0.02em;
+        background: linear-gradient(120deg, var(--brand), var(--brand-2));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
       }
 
       .contact-info ul {
@@ -857,16 +1002,54 @@
         padding: 0;
         margin: 0;
         display: grid;
-        gap: 14px;
+        gap: clamp(12px, 2vw, 18px);
+      }
+
+      .contact-info li {
+        display: grid;
+        gap: 6px;
       }
 
       .contact-info li strong {
         display: block;
         font-weight: 700;
-        color: var(--text);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 0.78rem;
+        color: color-mix(in srgb, var(--brand-strong) 62%, var(--text) 38%);
+      }
+
+      .contact-info li a,
+      .contact-info li span {
+        font-size: clamp(1rem, 2vw, 1.1rem);
+        color: color-mix(in srgb, var(--text) 75%, var(--brand-2) 25%);
+        text-decoration: none;
+      }
+
+      .contact-info li a {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 600;
+      }
+
+      .contact-info-links {
+        display: grid;
+        gap: 6px;
+      }
+
+      .contact-info li a:hover,
+      .contact-info li a:focus-visible {
+        color: color-mix(in srgb, var(--text) 68%, var(--accent) 32%);
+        text-decoration: underline;
       }
 
       .contact-form {
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        background: var(--surface);
+        padding: clamp(26px, 4vw, 36px);
+        box-shadow: var(--shadow);
         display: grid;
         gap: clamp(18px, 3vw, 24px);
       }
@@ -964,9 +1147,20 @@
         border: 1px solid var(--border);
         padding: 12px 14px;
         font: inherit;
-        color: var(--text);
-        background: rgba(6, 12, 20, 0.6);
+        color: var(--input-text);
+        background: var(--input-bg);
         transition: border var(--transition), background var(--transition), box-shadow var(--transition);
+      }
+
+      .contact-form .input-grid input,
+      .contact-form .input-grid textarea,
+      .contact-form .input-grid input[type="date"] {
+        background: var(--input-bg-contrast);
+      }
+
+      input::placeholder,
+      textarea::placeholder {
+        color: var(--input-placeholder);
       }
 
       input[type="date"] {
@@ -1037,7 +1231,7 @@
       @media (prefers-color-scheme: light) {
         input,
         textarea {
-          background: rgba(255, 255, 255, 0.92);
+          background: var(--input-bg);
         }
 
         .contact-form .option-chip span {
@@ -1070,6 +1264,15 @@
         box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand) 40%, transparent);
       }
 
+      input:-webkit-autofill,
+      textarea:-webkit-autofill,
+      input:-webkit-autofill:focus,
+      textarea:-webkit-autofill:focus {
+        -webkit-text-fill-color: var(--input-text);
+        transition: background-color 5000s ease-in-out 0s;
+        box-shadow: 0 0 0px 1000px var(--input-bg-contrast) inset;
+      }
+
       textarea {
         min-height: 160px;
         resize: vertical;
@@ -1084,6 +1287,27 @@
       @media (prefers-color-scheme: light) {
         footer {
           background: rgba(255, 255, 255, 0.9);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+
+        .gallery-event-button,
+        .gallery-thumb,
+        .card,
+        .hero-copy,
+        .hero-panel,
+        .contact-info,
+        .contact-form {
+          transition: none !important;
         }
       }
 
@@ -1205,6 +1429,59 @@
         }
       }
 
+      @media (max-width: 720px) {
+        section {
+          padding: clamp(48px, 16vw, 64px) 0;
+        }
+
+        .nav-shell {
+          padding-block: 16px;
+        }
+
+        .cta-row {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .btn {
+          width: 100%;
+        }
+
+        .chip-row {
+          width: 100%;
+        }
+
+        .chip {
+          flex: 1 1 30%;
+        }
+
+        .gallery-layout {
+          gap: clamp(20px, 6vw, 32px);
+        }
+
+        .gallery-events {
+          flex-direction: row;
+          overflow-x: auto;
+          scroll-snap-type: x proximity;
+          gap: 12px;
+          padding-block: clamp(14px, 5vw, 22px);
+          -webkit-overflow-scrolling: touch;
+        }
+
+        .gallery-event-button {
+          min-width: 220px;
+          scroll-snap-align: start;
+        }
+
+        .gallery-thumbs {
+          justify-content: center;
+        }
+
+        .contact-form .input-grid {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+
       @media (max-width: 900px) {
         .hero-grid,
         .contact-card {
@@ -1233,6 +1510,8 @@
           opacity: 0;
           pointer-events: none;
           transition: transform var(--transition), opacity var(--transition);
+          max-height: calc(100vh - 120px);
+          overflow-y: auto;
         }
 
         .nav-links.open {
@@ -1257,6 +1536,12 @@
           justify-items: stretch;
           background: color-mix(in srgb, var(--bg) 75%, transparent);
           border-top: 1px solid var(--border);
+        }
+
+        .floating-cta a,
+        .floating-cta button {
+          width: 100%;
+          justify-content: center;
         }
       }
 
@@ -1290,6 +1575,20 @@
           flex: 1 1 calc(50% - 12px);
         }
       }
+
+      @media (max-width: 480px) {
+        .gallery-event-button {
+          min-width: 180px;
+        }
+
+        .chip {
+          flex: 1 1 100%;
+        }
+
+        .floating-cta {
+          gap: 6px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -1318,8 +1617,8 @@
               <span class="eyebrow">Nairobi &amp; neighboring counties</span>
               <h1 id="hero-title">Full-service event design, rentals &amp; coordination</h1>
               <p class="lead">
-                Shelter Sky Events transforms empty spaces into vibrant celebrations with curated tents, comfortable chairs, and signature
-                décor—coordinated for a seamless experience.
+                Shelter Sky Events transforms empty spaces across Nairobi County into vibrant celebrations with curated tents,
+                comfortable chairs, and signature décor—coordinated for a seamless experience.
               </p>
               <div class="cta-row">
                 <a class="btn btn-primary" href="#contact">Plan your event</a>
@@ -1349,7 +1648,8 @@
             <span class="pill">Rentals &amp; styling</span>
             <h2 class="section-title" id="services-title">What we offer</h2>
             <p class="section-subtitle">
-              Mix and match our core rental collections to create a cohesive look for weddings, corporate functions, and private celebrations.
+              Mix and match our core rental collections to create a cohesive look for weddings, corporate functions, and private
+              celebrations across Nairobi and neighboring counties.
             </p>
             <div class="service-grid" role="list">
               <article class="card service-card" role="listitem">
@@ -1370,7 +1670,7 @@
                 <div class="service-icon" aria-hidden="true"></div>
                 <h3>Bespoke Decor</h3>
                 <p>
-                  It’s all in the details. We provide stunning decor, including lighting, drapery, and centerpieces, to transform your space.
+                  It’s all in the details. We curate draping, florals, tablescapes, and statement accents that pull your theme together.
                 </p>
               </article>
             </div>
@@ -1383,7 +1683,8 @@
               <span class="pill">Recent work</span>
               <h2 class="section-title" id="gallery-title">Atmospheres we’ve created</h2>
               <p class="section-subtitle">
-                Explore three signature installations and cycle through the full photo sets to see how our tents, chairs, and décor transform spaces.
+                Explore three signature installations and cycle through the full photo sets to see how our tents, chairs, and décor
+                transform Nairobi venues.
               </p>
             </div>
             <div class="gallery-layout">
@@ -1421,7 +1722,9 @@
           <div class="container">
             <span class="pill">Reviews</span>
             <h2 class="section-title" id="testimonials-title">Clients share the Shelter Sky experience</h2>
-            <p class="section-subtitle testimonials-note">More reviews coming soon — here’s a recent client highlight.</p>
+            <p class="section-subtitle testimonials-note">
+              More reviews coming soon — enjoy this sample client highlight while we gather fresh feedback.
+            </p>
             <div class="grid columns-2" id="testimonial-grid" aria-live="polite"></div>
           </div>
         </section>
@@ -1431,31 +1734,37 @@
             <span class="pill">Start planning</span>
             <h2 class="section-title" id="contact-title">Tell us about your event</h2>
             <p class="section-subtitle">
-              Share a few details and our team will reach out with a tailored proposal within 24 hours. Prefer to call? We’re always happy to
-              talk through ideas.
+              Share a few details and our Nairobi planning team will reach out with a tailored proposal within 24 hours. Prefer to
+              call? We’re always happy to talk through ideas.
             </p>
             <div class="contact-card">
               <div class="contact-info" aria-label="Contact details">
-                <h3>Contact Ann Muriithi</h3>
-                <ul>
-                  <li>
-                    <strong>Phone</strong>
-                    <a href="tel:+254724016269">0724 016 269</a><br />
-                    <a href="tel:+254787458511">0787 458 511</a>
-                  </li>
-                  <li>
-                    <strong>Email</strong>
-                    <a href="mailto:shelterskyevents@gmail.com">shelterskyevents@gmail.com</a>
-                  </li>
-                  <li>
-                    <strong>Office</strong>
-                    Nairobi, Kenya
-                  </li>
-                  <li>
-                    <strong>Hours</strong>
-                    Monday – Saturday · 8:00am – 6:00pm
-                  </li>
-                </ul>
+                <div class="contact-info-pane">
+                  <h3>Contact Ann Muriithi</h3>
+                  <ul>
+                    <li>
+                      <strong>Phone</strong>
+                      <div class="contact-info-links">
+                        <a href="tel:+254724016269">0724 016 269</a>
+                        <a href="tel:+254787458511">0787 458 511</a>
+                      </div>
+                    </li>
+                    <li>
+                      <strong>Email</strong>
+                      <div class="contact-info-links">
+                        <a href="mailto:bookings@shelterskyevents.com">bookings@shelterskyevents.com</a>
+                      </div>
+                    </li>
+                    <li>
+                      <strong>Hours</strong>
+                      <span>Monday – Saturday · 8:00am – 6:00pm</span>
+                    </li>
+                    <li>
+                      <strong>Service area</strong>
+                      <span>Nairobi County &amp; surrounding regions</span>
+                    </li>
+                  </ul>
+                </div>
               </div>
               <form class="contact-form" aria-label="Request a proposal">
                 <div class="input-grid">
@@ -1601,6 +1910,7 @@
     <template id="testimonial-template">
       <article class="testimonial">
         <blockquote></blockquote>
+        <p class="testimonial-sample-note" hidden></p>
         <cite></cite>
       </article>
     </template>
@@ -1627,6 +1937,7 @@
           quote:
             "Shelter Sky translated our corporate strategy into a high-energy launch that wowed over 400 guests. The production ran flawlessly.",
           name: "James · Regional Marketing Lead",
+          note: "Sample review for illustration while we collect more testimonials.",
         },
       ];
 
@@ -1635,6 +1946,13 @@
       testimonials.forEach((testimonial) => {
         const node = testimonialTemplate.content.cloneNode(true);
         node.querySelector("blockquote").textContent = testimonial.quote;
+        const noteEl = node.querySelector(".testimonial-sample-note");
+        if (testimonial.note) {
+          noteEl.textContent = testimonial.note;
+          noteEl.hidden = false;
+        } else {
+          noteEl.remove();
+        }
         node.querySelector("cite").textContent = testimonial.name;
         testimonialContainer.appendChild(node);
       });
@@ -1656,11 +1974,11 @@
 
       const eventDescriptions = {
         Event1: {
-          title: "Garden marquee wedding",
-          tag: "Tents & lighting",
-          meta: "Karen Country Club · 300 guests",
+          title: "Event 1",
+          tag: "Marquee tents & ambient lighting",
+          meta: "Twin-peak marquee · Chiavari seating · Bistro lighting",
           description:
-            "Layered draping, chandeliers, and cozy lounge pods transformed this golf course lawn into a romantic sunset reception.",
+            "Layered draping, chandeliers, and cozy lounge pods showcase how our marquee tents, seating, and lighting create an inviting reception setting.",
           accent: "#8da6ff",
           altText: [
             "Golden-hour view of a twin-peak marquee tent on a manicured lawn with banquet tables set beneath.",
@@ -1669,11 +1987,11 @@
           ],
         },
         Event2: {
-          title: "Corporate hospitality village",
-          tag: "Chairs & lounges",
-          meta: "Two Rivers Grounds · 250 guests",
+          title: "Event 2",
+          tag: "Lounge pods & dining sets",
+          meta: "Pagoda tents · Lounge furniture · Dining layouts",
           description:
-            "Modular seating clusters, branded colour palettes, and shaded lounges kept guests comfortable between activations.",
+            "Modular seating clusters, shaded pagodas, and styled dining tables highlight the mix of tenting, lounge chairs, and décor we provide for corporate socials.",
           accent: "#5df2d6",
           altText: [
             "Round guest table layered with burgundy linens, white chiavari chairs, and lush floral centerpieces.",
@@ -1682,11 +2000,11 @@
           ],
         },
         Event3: {
-          title: "Cultural celebration pavilion",
-          tag: "Decor & draping",
-          meta: "Thika Greens · 180 guests",
+          title: "Event 3",
+          tag: "Draped tents & colour accents",
+          meta: "Pagoda pavilion · Sashed chairs · Statement draping",
           description:
-            "Patterned textiles, colour-blocked chair sashes, and layered lighting celebrated the couple’s heritage in style.",
+            "Patterned textiles, colour-blocked chair sashes, and layered draping demonstrate our décor styling and tent dressing capabilities.",
           accent: "#ff9f47",
           altText: [
             "Circular reception table with orange runner, floral centerpiece, and white chairs tied with purple sashes.",
@@ -1927,12 +2245,59 @@
 
       const mobileToggle = document.querySelector(".mobile-toggle");
       const navLinks = document.querySelector(".nav-links");
+      const toggleBodyScroll = (locked) => {
+        document.body.classList.toggle("nav-open", locked);
+      };
+      const setNavAria = (isOpen) => {
+        if (!navLinks) return;
+        const shouldHide = window.innerWidth <= 900 && !isOpen;
+        navLinks.setAttribute("aria-hidden", shouldHide ? "true" : "false");
+      };
+      const closeMobileNav = () => {
+        if (!mobileToggle || !navLinks) return;
+        mobileToggle.setAttribute("aria-expanded", "false");
+        mobileToggle.textContent = "Menu";
+        navLinks.classList.remove("open");
+        toggleBodyScroll(false);
+        setNavAria(false);
+      };
+      const openMobileNav = () => {
+        if (!mobileToggle || !navLinks) return;
+        mobileToggle.setAttribute("aria-expanded", "true");
+        mobileToggle.textContent = "Close";
+        navLinks.classList.add("open");
+        toggleBodyScroll(true);
+        setNavAria(true);
+      };
       mobileToggle?.addEventListener("click", () => {
         const expanded = mobileToggle.getAttribute("aria-expanded") === "true";
-        mobileToggle.setAttribute("aria-expanded", String(!expanded));
-        navLinks.classList.toggle("open");
-        mobileToggle.textContent = expanded ? "Menu" : "Close";
+        if (expanded) {
+          closeMobileNav();
+          mobileToggle.focus();
+        } else {
+          openMobileNav();
+          navLinks?.querySelector("a")?.focus();
+        }
       });
+      navLinks?.addEventListener("click", (event) => {
+        if (event.target instanceof HTMLAnchorElement) {
+          closeMobileNav();
+        }
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && navLinks?.classList.contains("open")) {
+          closeMobileNav();
+          mobileToggle?.focus();
+        }
+      });
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 900 && navLinks?.classList.contains("open")) {
+          closeMobileNav();
+        } else {
+          setNavAria(navLinks?.classList.contains("open"));
+        }
+      });
+      setNavAria(false);
 
       const navObserver = new IntersectionObserver(
         (entries) => {
@@ -2063,7 +2428,7 @@
 
         const summary = lines.map((line) => encodeURIComponent(line)).join("%0A");
         const subject = encodeURIComponent("Event planning request");
-        window.location.href = `mailto:shelterskyevents@gmail.com?subject=${subject}&body=${summary}`;
+        window.location.href = `mailto:bookings@shelterskyevents.com?subject=${subject}&body=${summary}`;
       });
     </script>
   </body>
