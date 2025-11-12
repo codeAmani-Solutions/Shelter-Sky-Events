@@ -1,260 +1,1438 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0b0f14" />
-  <title>Shelter Sky Events — Nairobi</title>
-  <meta name="description" content="Shelter Sky Events in Nairobi. Tent hire, chairs, and decor for weddings, corporate events, and private celebrations."/>
-  <meta property="og:title" content="Shelter Sky Events — Nairobi"/>
-  <meta property="og:description" content="Tent hire, chairs, and decor for beautiful gatherings under the Nairobi sky."/>
-  <meta property="og:type" content="website"/>
-  <meta property="og:image" content="/og-shelter-sky.jpg"/>
-  <meta name="twitter:card" content="summary_large_image"/>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"Shelter Sky Events","address":{"@type":"PostalAddress","addressLocality":"Nairobi","addressCountry":"KE"},"email":"shelterskyevents@gmail.com","telephone":"+254724016269","areaServed":"Nairobi and nearby counties","sameAs":[]}</script>
-  <style>
-    :root {
-      --bg: #0b0f14;
-      --text: #e6ecf2;
-      --muted: #a8b3c1;
-      --brand: #50e3c2;
-      --brand-2: #7aa9ff;
-      --accent: #ffb86b;
-      --card: rgba(8,12,18,0.46);
-      --card-border: rgba(255,255,255,0.2);
-      --radius: 18px;
-      --gap: clamp(14px, 2vw, 22px);
-      --maxw: 1100px;
-    }
-    html[data-theme="light"] {
-      --bg: #f6f8fb;
-      --text: #0f141b;
-      --muted: #4f5b66;
-      --brand: #158b76;
-      --brand-2: #2d5cff;
-      --accent: #e67700;
-      --card: rgba(255,255,255,0.6);
-      --card-border: rgba(15,20,27,0.10);
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial;
-      color: var(--text);
-      background: var(--bg);
-      scroll-behavior: smooth;
-    }
-    .site { display: grid; grid-template-rows: auto 1fr auto; min-height: 100vh; }
-    .container { width: 100%; max-width: var(--maxw); padding: 0 var(--gap); margin: 0 auto; }
-    .glass { position: relative; background:
-      linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)) padding-box,
-      linear-gradient(135deg, var(--brand), var(--brand-2)) border-box;
-      border: 1px solid transparent; border-radius: var(--radius); backdrop-filter: blur(16px); }
-    header { position: sticky; top: 0; padding: 10px 0; backdrop-filter: blur(12px); }
-    .nav { display: flex; align-items: center; justify-content: space-between; }
-    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-weight: 700; }
-    .brand-badge { width: 36px; height: 36px; border-radius: 12px; background: linear-gradient(135deg, var(--brand), var(--brand-2)); }
-    .nav-links { display: flex; gap: 14px; }
-    .nav-links a { text-decoration: none; color: var(--text); }
-    .theme-toggle { border: 1px solid var(--card-border); background: var(--card); border-radius: 999px; padding: 8px 12px; color: var(--text); cursor: pointer; }
-    .section { padding: clamp(48px, 8vw, 96px) 0; }
-    .hero-card { padding: clamp(22px, 2.4vw, 34px); }
-    h1 { margin: 0 0 10px; font-size: clamp(32px, 4.5vw, 56px); }
-    .tagline { margin: 0 0 18px; color: var(--muted); }
-    .cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
-    .btn { border: none; padding: 12px 18px; border-radius: 12px; font-weight: 600; cursor: pointer; }
-    .btn-primary { background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: #fff; }
-    .btn-ghost { background: var(--card); color: var(--text); border: 1px solid var(--card-border); }
-    .section-title { font-size: clamp(22px, 3vw, 34px); }
-    .section-sub { color: var(--muted); }
-    .grid { display: grid; gap: var(--gap); }
-    .grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
-    @media (max-width: 980px) { .grid.cols-3 { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 640px) { .grid.cols-3 { grid-template-columns: 1fr; } }
-    footer { padding: 26px 0; font-size: .95rem; color: var(--muted); }
-    .foot-grid { display: grid; grid-template-columns: 1fr auto; align-items: center; }
-    .foot-links { display: flex; gap: 12px; }
-
-    /* Sticky CTA bar */
-    .cta-sticky{position:sticky;bottom:0;z-index:60;display:none;gap:10px;justify-content:center;padding:10px;background:color-mix(in srgb,var(--bg) 70%, transparent);backdrop-filter:blur(8px);border-top:1px solid var(--card-border)}
-    .cta-btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 14px;border-radius:12px;border:1px solid var(--card-border);background:var(--card);color:var(--text);text-decoration:none;font-weight:600}
-    .cta-btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff}
-    @media (max-width: 720px){.cta-sticky{display:flex}}
-
-    /* Nav active state */
-    .nav-links a.active{border-color:var(--card-border);background:var(--card);opacity:1}
-
-    /* Noise overlay and animated border shift */
-    .glass::before{content:"";position:absolute;inset:0;border-radius:inherit;background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity=".04"/></svg>');pointer-events:none;mix-blend-mode:soft-light}
-    @media (prefers-reduced-motion:no-preference){.glass{animation:borderShift 14s ease-in-out infinite}
-    @keyframes borderShift{50%{background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)) padding-box,linear-gradient(135deg,var(--brand-2),var(--accent)) border-box;}}}
-    @supports not (backdrop-filter: blur(1px)) {.glass{background-color:rgba(20,24,31,.88)}} { display: flex; gap: 12px; }
-  </style>
-</head>
-<body>
-  <div class="site">
-    <header>
-      <div class="container nav">
-        <a href="#top" class="brand"><span class="brand-badge"></span>Shelter Sky Events</a>
-        <nav class="nav-links">
-          <a href="#about">About</a>
-          <a href="#services">Services</a>
-          <a href="#work">Portfolio</a>
-          <a href="#testimonials">Testimonials</a>
-          <a href="#contact">Contact</a>
-        </nav>
-        <button id="themeToggle" class="theme-toggle">Dark</button>
-      </div>
-    </header>
-
-    <main id="top">
-      <section class="section" id="hero">
-        <div class="container glass hero-card">
-          <span class="eyebrow">Nairobi, Kenya</span>
-          <h1>Shelter Sky Events</h1>
-          <p class="tagline">Tents, chairs and decor for beautiful gatherings under the Nairobi sky.</p>
-          <div class="cta-row">
-            <a class="btn btn-primary" href="#contact">Get a quote</a>
-            <a class="btn btn-ghost" href="mailto:shelterskyevents@gmail.com">Email us</a>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="about">
-        <div class="container">
-          <div class="glass">
-            <h2 class="section-title">About Shelter Sky Events</h2>
-            <p class="section-sub">We help you stage warm, welcoming spaces for weddings, corporate functions and private celebrations across Nairobi. Our focus is simple: dependable tenting, comfortable seating and tasteful decor that fits your vision and budget.</p>
-            <p>Led by Director <strong>Ann Muriithi</strong>, our team is reachable directly on phone and email for quick quotes and fast confirmations. Tell us your date, location and guest count, and we will suggest the right setup and finishes.</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="services">
-        <div class="container">
-          <h2 class="section-title">Services</h2>
-          <p class="section-sub">Core offerings and ready bundles for smooth planning.</p>
-          <div class="grid cols-3">
-            <figure class="glass card">
-              <div class="thumb" data-src="/photos/p1.jpg" aria-hidden="true"></div>
-              <figcaption class="section-sub" style="margin-top:10px">Wedding tent and seating plan</figcaption>
-            </figure>
-            <figure class="glass card">
-              <div class="thumb" data-src="/photos/p2.jpg" aria-hidden="true"></div>
-              <figcaption class="section-sub" style="margin-top:10px">Corporate cocktail layout</figcaption>
-            </figure>
-            <figure class="glass card">
-              <div class="thumb" data-src="/photos/p3.jpg" aria-hidden="true"></div>
-              <figcaption class="section-sub" style="margin-top:10px">Garden party decor accents</figcaption>
-            </figure>
-          </div>
-          <dialog id="lightbox">
-            <img id="lightboxImg" alt="Event photo" style="max-width:90vw;max-height:80vh;border-radius:16px" loading="lazy"/>
-          </dialog>
-        </div>
-      </section>
-
-      <section class="section" id="work">
-        <div class="container">
-          <h2 class="section-title">Featured setups</h2>
-          <p class="section-sub">A glimpse of the clean, modern style we bring to Nairobi events.</p>
-        </div>
-      </section>
-
-      <section class="section" id="testimonials">
-        <div class="container">
-          <h2 class="section-title">What clients say</h2>
-          <blockquote class="glass">“Smooth process from quote to setup. The decor was simple and tasteful.”</blockquote>
-          <blockquote class="glass">“Reliable team and tidy finish. Our guests were comfortable and happy.”</blockquote>
-        </div>
-      </section>
-
-      <section class="section" id="contact">
-        <div class="container glass">
-          <h2 class="section-title">Contact</h2>
-          <p class="section-sub">Reach us directly for a fast quote and date confirmation.</p>
-          <p><strong>Ann Muriithi</strong> · Director</p>
-          <p>Phone: <a href="tel:+254724016269">0724 016 269</a> · <a href="tel:+254787458511">0787 458 511</a></p>
-          <p>Email: <a href="mailto:shelterskyevents@gmail.com">shelterskyevents@gmail.com</a></p>
-          <p>Nairobi, Kenya</p>
-        </div>
-      </section>
-      <div class="cta-sticky" role="region" aria-label="Quick actions">
-      <a class="cta-btn primary" href="#contact">Request quote</a>
-      <a class="cta-btn" href="https://wa.me/254724016269?text=Hi%20Shelter%20Sky%20Events%2C%20I%27d%20like%20a%20quote%20for%20an%20event%20in%20Nairobi.%20Guests%3A%20____%2C%20Date%3A%20____">WhatsApp</a>
-    </div>
-    </main>
-
-    <footer>
-      <div class="container foot-grid">
-        <div>© <span id="year"></span> Shelter Sky Events · Nairobi, Kenya</div>
-        <nav class="foot-links">
-          <a href="#hero">Top</a>
-          <a href="#services">Services</a>
-          <a href="#work">Portfolio</a>
-          <a href="#contact">Contact</a>
-        </nav>
-      </div>
-    </footer>
-  </div>
-
-  <script>
-    (function () {
-      const root = document.documentElement;
-      const btn = document.getElementById('themeToggle');
-      const preferred = localStorage.getItem('sse-theme') || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-      setTheme(preferred);
-      btn.addEventListener('click', () => setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
-      function setTheme(mode) {
-        root.setAttribute('data-theme', mode);
-        btn.textContent = mode.charAt(0).toUpperCase() + mode.slice(1);
-        localStorage.setItem('sse-theme', mode);
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Shelter Sky Events | Nairobi Event Planners &amp; Rentals</title>
+    <meta
+      name="description"
+      content="Shelter Sky Events creates elevated wedding, corporate, and private event experiences in Nairobi with full-service planning, rentals, and styling."
+    />
+    <meta property="og:title" content="Shelter Sky Events | Nairobi Event Planners &amp; Rentals" />
+    <meta
+      property="og:description"
+      content="Turn any space into a celebration. We plan, style, and furnish weddings, corporate functions, and private parties across Nairobi."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/og-shelter-sky.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #060b11;
+        --bg-soft: rgba(11, 17, 25, 0.74);
+        --surface: rgba(255, 255, 255, 0.06);
+        --surface-strong: rgba(19, 29, 42, 0.82);
+        --border: rgba(255, 255, 255, 0.14);
+        --text: #f6f9ff;
+        --muted: #a8b5c8;
+        --brand: #5df2d6;
+        --brand-strong: #3ebc9f;
+        --brand-2: #8da6ff;
+        --accent: #ffd492;
+        --shadow: 0 24px 54px rgba(4, 10, 18, 0.6);
+        --radius: 22px;
+        --max-width: min(1180px, 94vw);
+        --transition: 220ms ease;
       }
-      document.getElementById('year').textContent = new Date().getFullYear();
-    })();
-  </script>
-  <script>
-    // Scroll reveal (respects reduced motion)
-    (() => {
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      const els = document.querySelectorAll('.section .glass, .card, .thumb');
-      els.forEach(el => { el.style.opacity = 0; el.style.transform = 'translateY(16px)'; });
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.style.transition = 'transform .6s ease, opacity .6s ease';
-            e.target.style.opacity = 1; e.target.style.transform = 'translateY(0)';
-            io.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.15 });
-      els.forEach(el => io.observe(el));
-    })();
 
-    // Nav scroll spy
-    (() => {
-      const links = [...document.querySelectorAll('.nav-links a')];
-      const map = new Map(links.map(a => [document.querySelector(a.getAttribute('href')), a]));
-      const spy = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          const link = map.get(e.target); if (!link) return;
-          if (e.isIntersecting) { links.forEach(l => l.classList.remove('active')); link.classList.add('active'); }
-        });
-      }, { rootMargin: '-40% 0px -55% 0px' });
-      map.forEach((_, sec) => spy.observe(sec));
-    })();
+      :root[data-theme="light"] {
+        --bg: #f7f9fc;
+        --bg-soft: rgba(255, 255, 255, 0.88);
+        --surface: rgba(255, 255, 255, 0.9);
+        --surface-strong: rgba(255, 255, 255, 0.96);
+        --border: rgba(18, 33, 52, 0.08);
+        --text: #0e1727;
+        --muted: #4c5d75;
+        --brand: #1abf9a;
+        --brand-strong: #0f8b6c;
+        --brand-2: #3055ff;
+        --accent: #ff9f47;
+        --shadow: 0 20px 36px rgba(21, 45, 70, 0.18);
+      }
 
-    // Portfolio lightbox
-    (() => {
-      const dlg = document.getElementById('lightbox');
-      const img = document.getElementById('lightboxImg');
-      document.querySelectorAll('.thumb').forEach((t,i) => {
-        t.setAttribute('role','button'); t.tabIndex = 0;
-        t.addEventListener('click', () => { img.src = t.dataset.src || '/photos/p'+(i+1)+'.jpg'; dlg.showModal(); });
-        t.addEventListener('keydown', e => { if(e.key==='Enter') t.click(); });
+      @media (prefers-color-scheme: light) {
+        :root:not([data-theme]) {
+          --bg: #f7f9fc;
+          --bg-soft: rgba(255, 255, 255, 0.88);
+          --surface: rgba(255, 255, 255, 0.9);
+          --surface-strong: rgba(255, 255, 255, 0.96);
+          --border: rgba(18, 33, 52, 0.08);
+          --text: #0e1727;
+          --muted: #4c5d75;
+          --brand: #1abf9a;
+          --brand-strong: #0f8b6c;
+          --brand-2: #3055ff;
+          --accent: #ff9f47;
+          --shadow: 0 20px 36px rgba(21, 45, 70, 0.18);
+        }
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 16px;
+        line-height: 1.65;
+        color: var(--text);
+        background: var(--bg);
+        background-image: radial-gradient(circle at 2% 12%, rgba(94, 120, 255, 0.16), transparent 45%),
+          radial-gradient(circle at 96% 18%, rgba(93, 242, 214, 0.18), transparent 50%),
+          radial-gradient(circle at 50% 90%, rgba(255, 188, 113, 0.2), transparent 45%);
+        min-height: 100vh;
+        scroll-behavior: smooth;
+      }
+
+      .page {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        backdrop-filter: blur(16px);
+        background: color-mix(in srgb, var(--bg) 82%, transparent 18%);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-shell {
+        margin: 0 auto;
+        max-width: var(--max-width);
+        padding: 18px clamp(18px, 4vw, 36px);
+        display: flex;
+        align-items: center;
+        gap: 32px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        text-decoration: none;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        font-size: 1.05rem;
+      }
+
+      .brand-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 16px;
+        background: linear-gradient(140deg, var(--brand), var(--brand-2));
+        display: grid;
+        place-items: center;
+        color: #020305;
+        font-family: "Playfair Display", serif;
+        font-size: 1.2rem;
+        font-weight: 700;
+        box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.16);
+      }
+
+      .nav-links {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: clamp(18px, 4vw, 36px);
+      }
+
+      .nav-links a {
+        position: relative;
+        text-decoration: none;
+        font-weight: 500;
+        color: var(--muted);
+        transition: color var(--transition);
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -6px;
+        height: 2px;
+        width: 100%;
+        border-radius: 999px;
+        background: linear-gradient(120deg, var(--brand), var(--brand-2));
+        scale: 0;
+        transform-origin: left;
+        transition: scale var(--transition);
+      }
+
+      .nav-links a:focus-visible,
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: var(--text);
+      }
+
+      .nav-links a.active::after,
+      .nav-links a:hover::after,
+      .nav-links a:focus-visible::after {
+        scale: 1;
+      }
+
+      .mobile-toggle {
+        display: none;
+        border: none;
+        background: var(--surface);
+        border-radius: 12px;
+        padding: 10px 14px;
+        color: var(--text);
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      main {
+        flex: 1;
+      }
+
+      section {
+        padding: clamp(70px, 10vw, 120px) 0;
+      }
+
+      .container {
+        margin: 0 auto;
+        max-width: var(--max-width);
+        padding: 0 clamp(18px, 4vw, 36px);
+      }
+
+      .hero {
+        padding-top: clamp(110px, 15vw, 160px);
+      }
+
+      .hero-grid {
+        display: grid;
+        gap: clamp(28px, 5vw, 40px);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: center;
+      }
+
+      .hero-copy {
+        background: var(--surface-strong);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: clamp(28px, 4vw, 42px);
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-copy::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at top right, rgba(93, 242, 214, 0.24), transparent 55%);
+        pointer-events: none;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--brand);
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 26px;
+        height: 2px;
+        border-radius: 999px;
+        background: currentColor;
+      }
+
+      h1 {
+        margin: 14px 0;
+        font-size: clamp(2.6rem, 4.8vw, 4rem);
+        font-family: "Playfair Display", serif;
+        line-height: 1.1;
+      }
+
+      .lead {
+        margin: 0 0 26px;
+        font-size: clamp(1.1rem, 2.4vw, 1.3rem);
+        color: var(--muted);
+      }
+
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0 20px;
+        border-radius: 16px;
+        border: 1px solid transparent;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: transform var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition);
+        text-decoration: none;
+      }
+
+      .btn-primary {
+        background: linear-gradient(120deg, var(--brand), var(--brand-2));
+        color: #030508;
+        box-shadow: 0 20px 35px rgba(54, 200, 180, 0.3);
+      }
+
+      .btn-primary:hover,
+      .btn-primary:focus-visible {
+        transform: translateY(-2px);
+        box-shadow: 0 28px 45px rgba(54, 200, 180, 0.38);
+      }
+
+      .btn-ghost {
+        background: var(--surface);
+        border-color: var(--border);
+        color: var(--text);
+      }
+
+      .btn-ghost:hover,
+      .btn-ghost:focus-visible {
+        background: color-mix(in srgb, var(--surface) 70%, var(--brand) 30%);
+        border-color: var(--brand);
+      }
+
+      .hero-panel {
+        position: relative;
+        border-radius: var(--radius);
+        overflow: hidden;
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0));
+        border: 1px solid var(--border);
+        min-height: clamp(340px, 40vw, 420px);
+        padding: clamp(24px, 4vw, 38px);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .hero-panel::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 18% 20%, rgba(141, 166, 255, 0.45), transparent 60%),
+          radial-gradient(circle at 80% 80%, rgba(93, 242, 214, 0.36), transparent 62%);
+        mix-blend-mode: screen;
+        pointer-events: none;
+      }
+
+      .hero-panel h2 {
+        margin: 0;
+        font-size: clamp(1.4rem, 2.4vw, 1.8rem);
+        font-weight: 600;
+      }
+
+      .hero-stats {
+        display: grid;
+        gap: 18px;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        margin-top: 28px;
+      }
+
+      .stat {
+        background: rgba(3, 7, 12, 0.45);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 18px;
+        padding: 18px;
+        text-align: left;
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 2rem;
+        font-weight: 700;
+      }
+
+      h2.section-title {
+        margin: 0 0 12px;
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2.1rem, 3.8vw, 2.8rem);
+      }
+
+      p.section-subtitle {
+        margin: 0 0 40px;
+        color: var(--muted);
+        max-width: 620px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 18px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--muted);
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        font-size: 0.72rem;
+      }
+
+      .grid {
+        display: grid;
+        gap: clamp(24px, 5vw, 32px);
+      }
+
+      .grid.columns-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .grid.columns-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .card {
+        position: relative;
+        padding: clamp(26px, 4vw, 34px);
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        background: var(--surface);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        transition: transform var(--transition), border var(--transition), box-shadow var(--transition);
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        background: radial-gradient(circle at top right, rgba(93, 242, 214, 0.28), transparent 65%);
+        transition: opacity var(--transition);
+        pointer-events: none;
+      }
+
+      .card:hover,
+      .card:focus-within {
+        transform: translateY(-6px);
+        border-color: color-mix(in srgb, var(--border) 55%, var(--brand) 45%);
+        box-shadow: 0 30px 40px rgba(7, 16, 25, 0.38);
+      }
+
+      .card:hover::before,
+      .card:focus-within::before {
+        opacity: 1;
+      }
+
+      .card h3 {
+        margin: 0;
+        font-size: 1.4rem;
+        font-weight: 600;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .card ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 10px;
+        color: var(--muted);
+      }
+
+      .card ul li {
+        display: grid;
+        grid-template-columns: 12px 1fr;
+        align-items: start;
+        gap: 8px;
+      }
+
+      .card ul li::before {
+        content: "";
+        display: block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--brand), var(--brand-2));
+        margin-top: 4px;
+      }
+
+      .chip-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .chip {
+        padding: 8px 14px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 999px;
+        font-size: 0.85rem;
+      }
+
+      .process {
+        counter-reset: step;
+        display: grid;
+        gap: 24px;
+      }
+
+      .process-step {
+        position: relative;
+        padding-left: 56px;
+      }
+
+      .process-step::before {
+        counter-increment: step;
+        content: counter(step, decimal-leading-zero);
+        position: absolute;
+        left: 0;
+        top: 6px;
+        width: 40px;
+        height: 40px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, var(--brand), var(--brand-2));
+        display: grid;
+        place-items: center;
+        color: #04101c;
+        font-weight: 700;
+      }
+
+      blockquote {
+        margin: 0;
+        font-size: 1.1rem;
+        color: var(--text);
+        line-height: 1.7;
+      }
+
+      .testimonial {
+        position: relative;
+        border-radius: var(--radius);
+        padding: clamp(24px, 4vw, 34px);
+        border: 1px solid var(--border);
+        background: var(--surface-strong);
+        min-height: 220px;
+        display: grid;
+        gap: 20px;
+      }
+
+      .testimonial cite {
+        font-style: normal;
+        font-weight: 600;
+        color: var(--muted);
+      }
+
+      .gallery {
+        overflow: hidden;
+      }
+
+      .gallery-track {
+        display: grid;
+        grid-auto-flow: column;
+        gap: 18px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        padding-bottom: 6px;
+      }
+
+      .gallery-track::-webkit-scrollbar {
+        height: 6px;
+      }
+
+      .gallery-track::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 999px;
+      }
+
+      .gallery-card {
+        position: relative;
+        width: clamp(240px, 50vw, 320px);
+        aspect-ratio: 4 / 5;
+        border-radius: 22px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        scroll-snap-align: center;
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      .gallery-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .contact-card {
+        display: grid;
+        gap: clamp(22px, 4vw, 36px);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: stretch;
+      }
+
+      .contact-info,
+      .contact-form {
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        background: var(--surface);
+        padding: clamp(26px, 4vw, 36px);
+        box-shadow: var(--shadow);
+      }
+
+      .contact-info ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 14px;
+      }
+
+      .contact-info li strong {
+        display: block;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      form {
+        display: grid;
+        gap: 18px;
+      }
+
+      label {
+        display: grid;
+        gap: 8px;
+        font-weight: 500;
+      }
+
+      input,
+      textarea {
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        padding: 12px 14px;
+        font: inherit;
+        color: var(--text);
+        background: rgba(6, 12, 20, 0.6);
+        transition: border var(--transition), background var(--transition), box-shadow var(--transition);
+      }
+
+      @media (prefers-color-scheme: light) {
+        input,
+        textarea {
+          background: rgba(255, 255, 255, 0.92);
+        }
+      }
+
+      input:focus-visible,
+      textarea:focus-visible {
+        outline: none;
+        border-color: var(--brand);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand) 40%, transparent);
+      }
+
+      textarea {
+        min-height: 160px;
+        resize: vertical;
+      }
+
+      footer {
+        padding: 50px 0 40px;
+        background: rgba(2, 6, 11, 0.85);
+        border-top: 1px solid var(--border);
+      }
+
+      @media (prefers-color-scheme: light) {
+        footer {
+          background: rgba(255, 255, 255, 0.9);
+        }
+      }
+
+      .footer-grid {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        padding: 0 clamp(18px, 4vw, 36px);
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 22px;
+        color: var(--muted);
+      }
+
+      .footer-brand {
+        display: grid;
+        gap: 12px;
+      }
+
+      .socials {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .socials a {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.04);
+        text-decoration: none;
+        transition: background var(--transition), border var(--transition);
+      }
+
+      .socials a:hover,
+      .socials a:focus-visible {
+        background: color-mix(in srgb, var(--surface) 60%, var(--brand) 40%);
+        border-color: var(--brand);
+      }
+
+      .footer-meta {
+        margin-top: 28px;
+        text-align: center;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      .floating-cta {
+        position: fixed;
+        right: clamp(18px, 4vw, 36px);
+        bottom: clamp(18px, 4vw, 36px);
+        z-index: 120;
+        display: grid;
+        gap: 10px;
+        justify-items: end;
+      }
+
+      .floating-cta button,
+      .floating-cta a {
+        border-radius: 999px;
+        border: none;
+        padding: 14px 20px;
+        background: linear-gradient(120deg, var(--brand), var(--brand-2));
+        color: #040a12;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 18px 30px rgba(48, 160, 139, 0.4);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+      }
+
+      .floating-cta small {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+      }
+
+      .floating-cta .badge {
+        background: rgba(4, 10, 18, 0.8);
+        color: var(--text);
+        border-radius: 999px;
+        padding: 6px 12px;
+        font-size: 0.75rem;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+      }
+
+      .theme-switch {
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--muted);
+        border-radius: 999px;
+        padding: 10px 16px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background var(--transition), color var(--transition);
+      }
+
+      .theme-switch:hover,
+      .theme-switch:focus-visible {
+        background: color-mix(in srgb, var(--surface) 65%, var(--brand) 35%);
+        color: var(--text);
+      }
+
+      @media (max-width: 900px) {
+        .hero-grid,
+        .contact-card {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .nav-links {
+          position: fixed;
+          inset: 74px 18px auto;
+          padding: 22px;
+          border-radius: 18px;
+          flex-direction: column;
+          align-items: flex-start;
+          background: var(--surface-strong);
+          border: 1px solid var(--border);
+          box-shadow: var(--shadow);
+          transform: translateY(-140%);
+          opacity: 0;
+          pointer-events: none;
+          transition: transform var(--transition), opacity var(--transition);
+        }
+
+        .nav-links.open {
+          transform: translateY(0);
+          opacity: 1;
+          pointer-events: auto;
+        }
+
+        .mobile-toggle {
+          display: inline-flex;
+          margin-left: auto;
+        }
+
+        .nav-links a {
+          font-size: 1.05rem;
+        }
+
+        .grid.columns-3 {
+          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        }
+
+        .floating-cta {
+          position: sticky;
+          bottom: 0;
+          padding: 16px;
+          justify-items: stretch;
+          background: color-mix(in srgb, var(--bg) 75%, transparent);
+          border-top: 1px solid var(--border);
+        }
+      }
+
+      @media (max-width: 640px) {
+        .card,
+        .hero-copy,
+        .hero-panel,
+        .contact-info,
+        .contact-form {
+          border-radius: 18px;
+        }
+
+        .hero-panel {
+          min-height: auto;
+        }
+
+        .gallery-track {
+          gap: 12px;
+        }
+
+        .gallery-card {
+          border-radius: 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <nav class="nav-shell" aria-label="Primary">
+          <a href="#top" class="brand">
+            <span class="brand-icon" aria-hidden="true">S</span>
+            Shelter Sky Events
+          </a>
+          <button class="mobile-toggle" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+          <div class="nav-links" id="primary-nav" role="list">
+            <a href="#about" role="listitem">About</a>
+            <a href="#services" role="listitem">Services</a>
+            <a href="#packages" role="listitem">Packages</a>
+            <a href="#process" role="listitem">How we work</a>
+            <a href="#gallery" role="listitem">Gallery</a>
+            <a href="#testimonials" role="listitem">Reviews</a>
+            <a href="#contact" role="listitem">Contact</a>
+          </div>
+          <button class="theme-switch" id="themeSwitch" type="button">Light mode</button>
+        </nav>
+      </header>
+
+      <main id="top">
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="container hero-grid">
+            <div class="hero-copy">
+              <span class="eyebrow">Nairobi &amp; neighboring counties</span>
+              <h1 id="hero-title">Full-service event design, rentals &amp; coordination</h1>
+              <p class="lead">
+                Shelter Sky Events transforms empty spaces into vibrant celebrations with curated tents, signature décor, seating, lighting,
+                and on-the-day management.
+              </p>
+              <div class="cta-row">
+                <a class="btn btn-primary" href="#contact">Plan your event</a>
+                <a class="btn btn-ghost" href="https://wa.me/254724016269" target="_blank" rel="noopener">Chat on WhatsApp</a>
+              </div>
+              <div class="hero-stats" aria-label="Highlights">
+                <div class="stat">
+                  <strong id="stat-events">0</strong>
+                  Events delivered
+                </div>
+                <div class="stat">
+                  <strong id="stat-years">0</strong>
+                  Years coordinating
+                </div>
+                <div class="stat">
+                  <strong id="stat-rating">0.0</strong>
+                  Client satisfaction
+                </div>
+              </div>
+            </div>
+            <aside class="hero-panel">
+              <div>
+                <span class="pill">Why hosts choose us</span>
+                <h2>Everything you need under one roof</h2>
+                <p>
+                  We handle logistics, styling, and rental sourcing so you can focus on the guest experience. From intimate garden parties to
+                  multi-day corporate retreats, our planners keep timelines and budgets on track.
+                </p>
+              </div>
+              <div class="chip-row" aria-label="Quick services">
+                <span class="chip">Tents &amp; draping</span>
+                <span class="chip">Furniture &amp; lounge</span>
+                <span class="chip">Lighting &amp; audio</span>
+                <span class="chip">Florals &amp; styling</span>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section id="about" aria-labelledby="about-title">
+          <div class="container">
+            <span class="pill">Our story</span>
+            <h2 class="section-title" id="about-title">People-first planning for unforgettable gatherings</h2>
+            <p class="section-subtitle">
+              Led by Director <strong>Ann Muriithi</strong>, Shelter Sky Events is a Nairobi-based team of planners, stylists, and logistical pros.
+              We listen, advise, and execute with precision so every host feels confident from first call to last guest departure.
+            </p>
+            <div class="grid columns-3" id="about-highlights" aria-label="Company highlights"></div>
+          </div>
+        </section>
+
+        <section id="services" aria-labelledby="services-title">
+          <div class="container">
+            <span class="pill">What we deliver</span>
+            <h2 class="section-title" id="services-title">Services tailored to your celebration</h2>
+            <p class="section-subtitle">
+              Mix-and-match rentals and planning support, or hand over your entire event to our production team. Every package includes site
+              visits, mood boards, and on-site supervision on the day of your event.
+            </p>
+            <div class="grid columns-3" id="services-grid" aria-label="Services list"></div>
+          </div>
+        </section>
+
+        <section id="packages" aria-labelledby="packages-title">
+          <div class="container">
+            <span class="pill">Curated packages</span>
+            <h2 class="section-title" id="packages-title">Popular setups you can book today</h2>
+            <p class="section-subtitle">
+              Transparent pricing guides you from estimate to confirmation. We happily customize layouts and décor details to match your guest
+              count, venue, and brand.
+            </p>
+            <div class="grid columns-3" id="packages-grid" aria-label="Package options"></div>
+          </div>
+        </section>
+
+        <section id="process" aria-labelledby="process-title">
+          <div class="container">
+            <span class="pill">How it works</span>
+            <h2 class="section-title" id="process-title">Our collaborative planning process</h2>
+            <p class="section-subtitle">
+              We design events in clear milestones so you always know what’s next and who is responsible. Expect timely updates, live dashboards,
+              and one dedicated point of contact.
+            </p>
+            <div class="process" id="process-steps" aria-label="Planning steps"></div>
+          </div>
+        </section>
+
+        <section id="gallery" aria-labelledby="gallery-title">
+          <div class="container gallery">
+            <span class="pill">Recent work</span>
+            <h2 class="section-title" id="gallery-title">Atmospheres we’ve created</h2>
+            <p class="section-subtitle">
+              From contemporary chic to rustic romance, view a sample of our event styling. Ask about our full lookbooks during your consultation.
+            </p>
+            <div class="gallery-track" id="gallery-track" aria-live="polite"></div>
+          </div>
+        </section>
+
+        <section id="testimonials" aria-labelledby="testimonials-title">
+          <div class="container">
+            <span class="pill">Reviews</span>
+            <h2 class="section-title" id="testimonials-title">Clients share the Shelter Sky experience</h2>
+            <div class="grid columns-2" id="testimonial-grid" aria-live="polite"></div>
+          </div>
+        </section>
+
+        <section id="contact" aria-labelledby="contact-title">
+          <div class="container">
+            <span class="pill">Start planning</span>
+            <h2 class="section-title" id="contact-title">Tell us about your event</h2>
+            <p class="section-subtitle">
+              Share a few details and our team will reach out with a tailored proposal within 24 hours. Prefer to call? We’re always happy to
+              talk through ideas.
+            </p>
+            <div class="contact-card">
+              <div class="contact-info" aria-label="Contact details">
+                <h3>Contact Ann Muriithi</h3>
+                <ul>
+                  <li>
+                    <strong>Phone</strong>
+                    <a href="tel:+254724016269">0724 016 269</a><br />
+                    <a href="tel:+254787458511">0787 458 511</a>
+                  </li>
+                  <li>
+                    <strong>Email</strong>
+                    <a href="mailto:shelterskyevents@gmail.com">shelterskyevents@gmail.com</a>
+                  </li>
+                  <li>
+                    <strong>Office</strong>
+                    Nairobi, Kenya
+                  </li>
+                  <li>
+                    <strong>Hours</strong>
+                    Monday – Saturday · 8:00am – 6:00pm
+                  </li>
+                </ul>
+              </div>
+              <form class="contact-form" aria-label="Request a proposal">
+                <label>
+                  Full name
+                  <input name="name" type="text" placeholder="e.g. Jane Wanjiku" autocomplete="name" required />
+                </label>
+                <label>
+                  Email address
+                  <input name="email" type="email" placeholder="name@email.com" autocomplete="email" required />
+                </label>
+                <label>
+                  Phone number
+                  <input name="phone" type="tel" placeholder="Mobile or WhatsApp" autocomplete="tel" />
+                </label>
+                <label>
+                  Event details
+                  <textarea name="details" placeholder="Date, location, guest count, desired atmosphere" required></textarea>
+                </label>
+                <button class="btn btn-primary" type="submit">Request proposal</button>
+                <small style="color: var(--muted);">We reply within 24 hours. Your information remains private.</small>
+              </form>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a href="#top" class="brand">
+              <span class="brand-icon" aria-hidden="true">S</span>
+              Shelter Sky Events
+            </a>
+            <p>
+              Nairobi event planning and premium rental styling for weddings, corporate gatherings, and milestone celebrations.
+            </p>
+          </div>
+          <div>
+            <h3 style="margin-top: 0;">Quick links</h3>
+            <div class="chip-row">
+              <a class="chip" href="#services">Services</a>
+              <a class="chip" href="#packages">Packages</a>
+              <a class="chip" href="#gallery">Gallery</a>
+              <a class="chip" href="#contact">Contact</a>
+            </div>
+          </div>
+          <div>
+            <h3 style="margin-top: 0;">Connect</h3>
+            <div class="socials">
+              <a href="https://wa.me/254724016269" target="_blank" rel="noopener">WhatsApp</a>
+              <a href="tel:+254724016269">Call</a>
+              <a href="mailto:shelterskyevents@gmail.com">Email</a>
+              <a href="https://www.instagram.com" target="_blank" rel="noopener">Instagram</a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-meta">
+          © <span id="year"></span> Shelter Sky Events · All rights reserved.
+        </div>
+      </footer>
+    </div>
+
+    <div class="floating-cta" aria-live="polite">
+      <span class="badge">Planning season is open</span>
+      <a href="#contact"><small>Need support?</small> Request a proposal</a>
+    </div>
+
+    <template id="highlight-template">
+      <article class="card">
+        <h3></h3>
+        <p></p>
+      </article>
+    </template>
+
+    <template id="service-template">
+      <article class="card">
+        <span class="pill"></span>
+        <h3></h3>
+        <p></p>
+        <ul></ul>
+      </article>
+    </template>
+
+    <template id="package-template">
+      <article class="card" tabindex="0">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px;">
+          <h3></h3>
+          <span class="pill"></span>
+        </div>
+        <p></p>
+        <div class="chip-row"></div>
+        <div style="margin-top: auto; display: grid; gap: 12px;">
+          <strong style="font-size: 1.4rem;"></strong>
+          <a class="btn btn-ghost" href="#contact">Book this setup</a>
+        </div>
+      </article>
+    </template>
+
+    <template id="process-template">
+      <div class="process-step card">
+        <h3></h3>
+        <p></p>
+      </div>
+    </template>
+
+    <template id="testimonial-template">
+      <article class="testimonial">
+        <blockquote></blockquote>
+        <cite></cite>
+      </article>
+    </template>
+
+    <template id="gallery-template">
+      <figure class="gallery-card">
+        <img alt="Shelter Sky Events portfolio image" loading="lazy" />
+      </figure>
+    </template>
+
+    <script>
+      const highlights = [
+        {
+          title: "Experienced producers",
+          copy:
+            "Over a decade orchestrating weddings, corporate launches, galas, and private celebrations with 50–1000 guests.",
+        },
+        {
+          title: "Flexible rentals",
+          copy: "Pick and mix tents, chairs, lounge furniture, bars, lighting, and décor items sourced from trusted partners.",
+        },
+        {
+          title: "Detail-obsessed team",
+          copy: "We collaborate with caterers, photographers, entertainers, and venue managers to align the full guest journey.",
+        },
+      ];
+
+      const services = [
+        {
+          label: "Plan",
+          title: "Planning & Coordination",
+          copy: "Timeline creation, vendor management, and rehearsal-to-breakdown oversight led by a senior planner.",
+          bullets: ["Budget tracking dashboard", "Vendor sourcing and contracting", "Run-of-show creation"],
+        },
+        {
+          label: "Style",
+          title: "Design & Styling",
+          copy: "Concept development, décor mood boards, and curated installations that reflect your vision and story.",
+          bullets: ["Custom stage & focal points", "Florals and tablescapes", "Ambient lighting design"],
+        },
+        {
+          label: "Equip",
+          title: "Tents & Rentals",
+          copy: "Clear span, high-peak, and stretch tent options with matching seating, lounge sets, flooring, and climate control.",
+          bullets: ["Site inspection & measurements", "Power and safety planning", "On-site setup & strike"],
+        },
+      ];
+
+      const packages = [
+        {
+          name: "Signature Wedding",
+          badge: "Most booked",
+          description:
+            "Romantic draping, dressed tent, full guest seating, aisle styling, reception lighting, and on-the-day coordination.",
+          inclusions: ["300-guest clear span tent", "Chiavari chairs & dressed tables", "Custom head table design", "Fairy light canopy"],
+          price: "From KES 165,000",
+        },
+        {
+          name: "Corporate Showcase",
+          badge: "New",
+          description: "Stage, projection, branded signage, and lounge pods for product launches, town halls, and award nights.",
+          inclusions: ["Stretch tent & stage backdrop", "LED screens & PA system", "Registration and green rooms", "Brand styling package"],
+          price: "From KES 210,000",
+        },
+        {
+          name: "Garden Soirée",
+          badge: "Intimate",
+          description: "Stylish cocktail party setup with lounge seating, bar service station, and ambient lighting for 80 guests.",
+          inclusions: ["Open-sided marquee", "Mix of lounge & café seating", "Statement floral installs", "Warm lighting & lanterns"],
+          price: "From KES 95,000",
+        },
+      ];
+
+      const steps = [
+        {
+          title: "Discovery & moodboard",
+          copy: "We unpack your goals, guest list, and inspiration to create an actionable concept deck within 3 business days.",
+        },
+        {
+          title: "Design & logistics",
+          copy: "Our planners confirm venue specs, coordinate vendors, and share transparent budgets and floor plans for approval.",
+        },
+        {
+          title: "Production & management",
+          copy: "We supervise setup, rehearse key moments, manage the event timeline, and handle teardown so you can celebrate.",
+        },
+      ];
+
+      const testimonials = [
+        {
+          quote:
+            "Shelter Sky translated our corporate strategy into a high-energy launch that wowed over 400 guests. The production ran flawlessly.",
+          name: "James · Regional Marketing Lead",
+        },
+        {
+          quote:
+            "Ann and team thought through every detail for our garden wedding. The tented reception looked magical and the day flowed with ease.",
+          name: "Njeri & Alex · Newlyweds",
+        },
+        {
+          quote: "Professional, timely, and creative. They delivered lounge pods and décor that elevated our annual staff party.",
+          name: "Mercy · HR Director",
+        },
+        {
+          quote: "Our guests loved the ambience and comfort. Shelter Sky handled décor, rentals, and coordination beyond expectations.",
+          name: "Winnie · Event Host",
+        },
+      ];
+
+      const galleryImages = [
+        "/photos/p1.jpg",
+        "/photos/p2.jpg",
+        "/photos/p3.jpg",
+        "/photos/p4.jpg",
+        "/photos/p5.jpg",
+        "/photos/p6.jpg",
+      ];
+
+      const highlightContainer = document.getElementById("about-highlights");
+      const highlightTemplate = document.getElementById("highlight-template");
+      highlights.forEach((item) => {
+        const node = highlightTemplate.content.cloneNode(true);
+        node.querySelector("h3").textContent = item.title;
+        node.querySelector("p").textContent = item.copy;
+        highlightContainer.appendChild(node);
       });
-      dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
-    })();
-  </script>
-</body>
+
+      const serviceContainer = document.getElementById("services-grid");
+      const serviceTemplate = document.getElementById("service-template");
+      services.forEach((service) => {
+        const node = serviceTemplate.content.cloneNode(true);
+        node.querySelector(".pill").textContent = service.label;
+        node.querySelector("h3").textContent = service.title;
+        node.querySelector("p").textContent = service.copy;
+        const list = node.querySelector("ul");
+        service.bullets.forEach((bullet) => {
+          const li = document.createElement("li");
+          li.textContent = bullet;
+          list.appendChild(li);
+        });
+        serviceContainer.appendChild(node);
+      });
+
+      const packageContainer = document.getElementById("packages-grid");
+      const packageTemplate = document.getElementById("package-template");
+      packages.forEach((pkg) => {
+        const node = packageTemplate.content.cloneNode(true);
+        node.querySelector("h3").textContent = pkg.name;
+        node.querySelector(".pill").textContent = pkg.badge;
+        node.querySelector("p").textContent = pkg.description;
+        node.querySelector("strong").textContent = pkg.price;
+        const chips = node.querySelector(".chip-row");
+        pkg.inclusions.forEach((item) => {
+          const span = document.createElement("span");
+          span.className = "chip";
+          span.textContent = item;
+          chips.appendChild(span);
+        });
+        packageContainer.appendChild(node);
+      });
+
+      const processContainer = document.getElementById("process-steps");
+      const processTemplate = document.getElementById("process-template");
+      steps.forEach((step) => {
+        const node = processTemplate.content.cloneNode(true);
+        node.querySelector("h3").textContent = step.title;
+        node.querySelector("p").textContent = step.copy;
+        processContainer.appendChild(node);
+      });
+
+      const testimonialContainer = document.getElementById("testimonial-grid");
+      const testimonialTemplate = document.getElementById("testimonial-template");
+      testimonials.forEach((testimonial) => {
+        const node = testimonialTemplate.content.cloneNode(true);
+        node.querySelector("blockquote").textContent = testimonial.quote;
+        node.querySelector("cite").textContent = testimonial.name;
+        testimonialContainer.appendChild(node);
+      });
+
+      const galleryContainer = document.getElementById("gallery-track");
+      const galleryTemplate = document.getElementById("gallery-template");
+      galleryImages.forEach((src) => {
+        const node = galleryTemplate.content.cloneNode(true);
+        node.querySelector("img").src = src;
+        galleryContainer.appendChild(node);
+      });
+
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      const mobileToggle = document.querySelector(".mobile-toggle");
+      const navLinks = document.querySelector(".nav-links");
+      mobileToggle?.addEventListener("click", () => {
+        const expanded = mobileToggle.getAttribute("aria-expanded") === "true";
+        mobileToggle.setAttribute("aria-expanded", String(!expanded));
+        navLinks.classList.toggle("open");
+        mobileToggle.textContent = expanded ? "Menu" : "Close";
+      });
+
+      const navObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              document
+                .querySelectorAll('.nav-links a[href="#' + entry.target.id + '"]')
+                .forEach((link) => link.classList.add("active"));
+            } else {
+              document
+                .querySelectorAll('.nav-links a[href="#' + entry.target.id + '"]')
+                .forEach((link) => link.classList.remove("active"));
+            }
+          });
+        },
+        { rootMargin: "-40% 0px -50% 0px" }
+      );
+
+      document
+        .querySelectorAll("section[id]")
+        .forEach((section) => navObserver.observe(section));
+
+      const statTargets = {
+        "stat-events": 480,
+        "stat-years": 12,
+        "stat-rating": 4.9,
+      };
+
+      const animateStat = (element, target) => {
+        const duration = 1600;
+        const start = performance.now();
+
+        const update = (time) => {
+          const progress = Math.min((time - start) / duration, 1);
+          const value = target % 1 !== 0 ? (target * progress).toFixed(1) : Math.floor(target * progress);
+          element.textContent = progress === 1 ? target.toString() : value;
+          if (progress < 1) requestAnimationFrame(update);
+        };
+
+        requestAnimationFrame(update);
+      };
+
+      const statObserver = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const id = entry.target.id;
+              animateStat(entry.target, statTargets[id]);
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.6 }
+      );
+
+      Object.keys(statTargets).forEach((id) => statObserver.observe(document.getElementById(id)));
+
+      const revealObserver = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.style.setProperty("--reveal-opacity", "1");
+              entry.target.style.setProperty("--reveal-translate", "0px");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+
+      const revealElements = document.querySelectorAll(".card, .hero-copy, .hero-panel, .testimonial, .gallery-card, .contact-info, .contact-form");
+      revealElements.forEach((el) => {
+        el.style.opacity = "var(--reveal-opacity, 0)";
+        el.style.transform = "translateY(var(--reveal-translate, 24px))";
+        el.style.transition = "opacity 600ms ease, transform 600ms ease";
+        revealObserver.observe(el);
+      });
+
+      const themeSwitch = document.getElementById("themeSwitch");
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+      const setTheme = (mode) => {
+        document.documentElement.dataset.theme = mode;
+        themeSwitch.textContent = mode === "dark" ? "Light mode" : "Dark mode";
+        localStorage.setItem("sse-theme", mode);
+      };
+
+      const storedTheme = localStorage.getItem("sse-theme");
+      if (storedTheme) {
+        setTheme(storedTheme);
+      } else {
+        setTheme(prefersDark.matches ? "dark" : "light");
+      }
+
+      themeSwitch.addEventListener("click", () => {
+        const current = document.documentElement.dataset.theme;
+        setTheme(current === "dark" ? "light" : "dark");
+      });
+
+      prefersDark.addEventListener("change", (event) => {
+        if (!localStorage.getItem("sse-theme")) {
+          setTheme(event.matches ? "dark" : "light");
+        }
+      });
+
+      document.querySelector(".contact-form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const data = Object.fromEntries(new FormData(form));
+        const summary = `Hi Shelter Sky Events!%0A%0AMy name is ${data.name}.%0AEvent details: ${data.details}.%0AYou can reach me on ${
+          data.email || "email"
+        }${data.phone ? ` / ${data.phone}` : ""}.`;
+        window.location.href = `mailto:shelterskyevents@gmail.com?subject=Event%20planning%20request&body=${summary}`;
+      });
+    </script>
+  </body>
 </html>
