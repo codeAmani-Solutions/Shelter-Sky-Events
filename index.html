@@ -80,7 +80,7 @@
             "closes": "18:00"
           }
         ],
-          "serviceType": [
+        "serviceType": [
           "Event planning",
           "Tent rentals",
           "Chair rentals",
@@ -591,6 +591,116 @@
         color: color-mix(in srgb, var(--muted) 85%, transparent 15%);
       }
 
+      .director {
+        display: grid;
+        gap: clamp(28px, 5vw, 44px);
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        align-items: stretch;
+      }
+
+      .director-intro {
+        display: grid;
+        gap: clamp(18px, 3vw, 26px);
+        align-content: start;
+      }
+
+      .director-intro p {
+        margin: 0;
+        color: color-mix(in srgb, var(--muted) 82%, transparent 18%);
+        max-width: 560px;
+      }
+
+      :root[data-theme="light"] .director-intro p {
+        color: color-mix(in srgb, var(--muted) 92%, transparent 8%);
+      }
+
+      .director-signature {
+        display: inline-flex;
+        flex-direction: column;
+        gap: 4px;
+        font-weight: 600;
+        color: var(--text);
+      }
+
+      .director-signature strong {
+        font-size: 1.05rem;
+      }
+
+      .director-signature span {
+        font-weight: 500;
+        font-size: 0.95rem;
+        color: var(--muted);
+      }
+
+      .director-card {
+        position: relative;
+        padding: clamp(32px, 5vw, 44px);
+        border-radius: var(--radius);
+        border: 1px solid color-mix(in srgb, var(--border) 55%, var(--brand) 45%);
+        background: linear-gradient(
+          150deg,
+          color-mix(in srgb, var(--surface-strong) 88%, var(--brand) 12%),
+          color-mix(in srgb, var(--surface) 75%, var(--brand-2) 25%)
+        );
+        box-shadow: 0 34px 58px rgba(7, 16, 25, 0.5);
+        display: grid;
+        gap: clamp(20px, 3vw, 28px);
+        overflow: hidden;
+        isolation: isolate;
+        color: var(--text);
+      }
+
+      .director-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.18), transparent 60%);
+        z-index: -1;
+      }
+
+      :root[data-theme="light"] .director-card {
+        border-color: color-mix(in srgb, var(--border) 65%, var(--brand) 35%);
+        background: linear-gradient(
+          150deg,
+          color-mix(in srgb, #ffffff 88%, var(--brand) 12%),
+          color-mix(in srgb, #ffffff 80%, var(--brand-2) 20%)
+        );
+        box-shadow: 0 28px 46px rgba(21, 45, 70, 0.2);
+      }
+
+      .director-card h3 {
+        margin: 0;
+        font-size: clamp(1.4rem, 2.4vw, 1.8rem);
+      }
+
+      .director-quote {
+        margin: 0;
+        font-family: "Playfair Display", serif;
+        font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+        line-height: 1.4;
+        color: color-mix(in srgb, var(--text) 92%, transparent 8%);
+      }
+
+      .director-highlights {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 14px;
+        color: color-mix(in srgb, var(--text) 82%, transparent 18%);
+      }
+
+      .director-highlights li {
+        display: grid;
+        grid-template-columns: 24px 1fr;
+        align-items: start;
+        gap: 12px;
+      }
+
+      .director-cta {
+        justify-self: start;
+      }
+
       .card h3 {
         margin: 0;
         font-size: 1.4rem;
@@ -626,6 +736,11 @@
         border-radius: 50%;
         background: linear-gradient(135deg, var(--brand), var(--brand-2));
         margin-top: 4px;
+      }
+
+      .director-highlights li::before {
+        margin-top: 6px;
+        box-shadow: 0 8px 16px rgba(7, 16, 25, 0.28);
       }
 
       .chip-row {
@@ -996,21 +1111,37 @@
         -webkit-text-fill-color: transparent;
       }
 
-      .contact-info ul {
-        list-style: none;
-        padding: 0;
+      .contact-info-items {
+        display: grid;
+        gap: clamp(14px, 2.6vw, 22px);
         margin: 0;
-        display: grid;
-        gap: clamp(12px, 2vw, 18px);
       }
 
-      .contact-info li {
+      .contact-info-item {
+        position: relative;
         display: grid;
-        gap: 6px;
+        gap: 10px;
+        padding: clamp(14px, 2.6vw, 20px);
+        border-radius: calc(var(--radius) * 0.7);
+        border: 1px solid color-mix(in srgb, var(--border) 70%, var(--brand) 30%);
+        background: color-mix(in srgb, var(--surface) 84%, transparent 16%);
+        box-shadow: inset 0 1px 0 color-mix(in srgb, var(--text) 6%, transparent 94%);
       }
 
-      .contact-info li strong {
-        display: block;
+      .contact-info-item::after {
+        content: "";
+        position: absolute;
+        inset: auto 16px -2px 16px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--brand-2) 45%, transparent 55%), transparent);
+        opacity: 0.7;
+      }
+
+      .contact-info-item:last-child::after {
+        display: none;
+      }
+
+      .contact-info-label {
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.08em;
@@ -1018,18 +1149,12 @@
         color: color-mix(in srgb, var(--brand-strong) 62%, var(--text) 38%);
       }
 
-      .contact-info li a,
-      .contact-info li span {
+      .contact-info-value {
         font-size: clamp(1rem, 2vw, 1.1rem);
         color: color-mix(in srgb, var(--text) 75%, var(--brand-2) 25%);
         text-decoration: none;
-      }
-
-      .contact-info li a {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        font-weight: 600;
+        display: grid;
+        gap: 6px;
       }
 
       .contact-info-links {
@@ -1037,8 +1162,16 @@
         gap: 6px;
       }
 
-      .contact-info li a:hover,
-      .contact-info li a:focus-visible {
+      .contact-info-links a {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 600;
+        text-decoration: none;
+      }
+
+      .contact-info-links a:hover,
+      .contact-info-links a:focus-visible {
         color: color-mix(in srgb, var(--text) 68%, var(--accent) 32%);
         text-decoration: underline;
       }
@@ -1487,6 +1620,10 @@
           grid-template-columns: minmax(0, 1fr);
         }
 
+        .director {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
         .service-grid {
           grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
         }
@@ -1601,6 +1738,7 @@
           <button class="mobile-toggle" aria-expanded="false" aria-controls="primary-nav">Menu</button>
           <div class="nav-links" id="primary-nav" role="list">
             <a href="#services" role="listitem">Services</a>
+            <a href="#director" role="listitem">Director</a>
             <a href="#gallery" role="listitem">Gallery</a>
             <a href="#testimonials" role="listitem">Reviews</a>
             <a href="#contact" role="listitem">Contact</a>
@@ -1627,10 +1765,10 @@
             <aside class="hero-panel">
               <div>
                 <span class="pill">Why hosts choose us</span>
-                <h2>Everything you need under one roof</h2>
+                <h2>Director-led planning under one roof</h2>
                 <p>
-                  We handle logistics, styling, and rental sourcing so you can focus on the guest experience. From intimate garden parties to
-                  multi-day corporate retreats, our planners keep timelines and budgets on track.
+                  Director Ann Muriithi personally curates our tents, chairs, and décor to fit your venue while the team steers timelines,
+                  vendors, and styling so you can stay focused on hosting.
                 </p>
               </div>
               <div class="chip-row" aria-label="Quick services">
@@ -1673,6 +1811,39 @@
                 </p>
               </article>
             </div>
+          </div>
+        </section>
+
+        <section id="director" aria-labelledby="director-title">
+          <div class="container director">
+            <div class="director-intro">
+              <span class="pill">Leadership</span>
+              <h2 class="section-title" id="director-title">Meet our director</h2>
+              <p class="section-subtitle">
+                Shelter Sky Events is guided by founder Ann Muriithi, whose personal oversight keeps every celebration polished and
+                intentional.
+              </p>
+              <p>
+                From the first walkthrough to final styling, Ann partners with you to align tent architecture, seating layouts, and
+                décor storytelling with your goals while coordinating trusted Nairobi vendors and project timelines.
+              </p>
+              <div class="director-signature">
+                <strong>Ann Muriithi</strong>
+                <span>Director &amp; Lead Planner</span>
+              </div>
+            </div>
+            <article class="card director-card" aria-labelledby="director-highlights-title">
+              <h3 id="director-highlights-title">How Ann elevates every celebration</h3>
+              <p class="director-quote">
+                “Every tent line, chair placement, and décor accent should echo the celebration you’re envisioning.”
+              </p>
+              <ul class="director-highlights">
+                <li>Custom tent layouts tailored to Nairobi venues, weather, and guest comfort.</li>
+                <li>Curated seating plans that balance flow, comfort, and photographic impact.</li>
+                <li>Décor direction that layers draping, florals, and signature accents into a unified story.</li>
+              </ul>
+              <a class="btn btn-primary director-cta" href="#contact">Plan with Ann</a>
+            </article>
           </div>
         </section>
 
@@ -1740,29 +1911,29 @@
               <div class="contact-info" aria-label="Contact details">
                 <div class="contact-info-pane">
                   <h3>Contact Ann Muriithi</h3>
-                  <ul>
-                    <li>
-                      <strong>Phone</strong>
-                      <div class="contact-info-links">
+                  <div class="contact-info-items">
+                    <div class="contact-info-item">
+                      <span class="contact-info-label">Phone</span>
+                      <div class="contact-info-value contact-info-links">
                         <a href="tel:+254724016269">0724 016 269</a>
                         <a href="tel:+254787458511">0787 458 511</a>
                       </div>
-                    </li>
-                    <li>
-                      <strong>Email</strong>
-                      <div class="contact-info-links">
+                    </div>
+                    <div class="contact-info-item">
+                      <span class="contact-info-label">Email</span>
+                      <div class="contact-info-value contact-info-links">
                         <a href="mailto:bookings@shelterskyevents.com">bookings@shelterskyevents.com</a>
                       </div>
-                    </li>
-                    <li>
-                      <strong>Hours</strong>
-                      <span>Monday – Saturday · 8:00am – 6:00pm</span>
-                    </li>
-                    <li>
-                      <strong>Service area</strong>
-                      <span>Nairobi County &amp; surrounding regions</span>
-                    </li>
-                  </ul>
+                    </div>
+                    <div class="contact-info-item">
+                      <span class="contact-info-label">Hours</span>
+                      <span class="contact-info-value">Monday – Saturday · 8:00am – 6:00pm</span>
+                    </div>
+                    <div class="contact-info-item">
+                      <span class="contact-info-label">Service area</span>
+                      <span class="contact-info-value">Nairobi County &amp; surrounding regions</span>
+                    </div>
+                  </div>
                 </div>
               </div>
               <form class="contact-form" aria-label="Request a proposal">
@@ -1817,10 +1988,27 @@
                     </label>
                   </div>
                 </fieldset>
+                <fieldset>
+                  <legend>Preferred contact method</legend>
+                  <div class="option-group">
+                    <label class="option-chip">
+                      <input type="radio" name="preferredContact" value="WhatsApp" checked />
+                      <span>WhatsApp</span>
+                    </label>
+                    <label class="option-chip">
+                      <input type="radio" name="preferredContact" value="Mobile" />
+                      <span>Mobile</span>
+                    </label>
+                    <label class="option-chip">
+                      <input type="radio" name="preferredContact" value="Email" />
+                      <span>Email</span>
+                    </label>
+                  </div>
+                </fieldset>
                 <div class="input-grid">
                   <label for="eventDate">
                     Event date
-                    <input id="eventDate" name="eventDate" type="date" />
+                    <input id="eventDate" name="eventDate" type="date" lang="en-GB" placeholder="dd/mm/yyyy" />
                   </label>
                   <label for="eventLocation">
                     Location
@@ -1881,6 +2069,7 @@
             <h3 style="margin-top: 0;">Quick links</h3>
             <div class="chip-row">
               <a class="chip" href="#services">Services</a>
+              <a class="chip" href="#director">Director</a>
               <a class="chip" href="#gallery">Gallery</a>
               <a class="chip" href="#contact">Contact</a>
             </div>
@@ -2333,7 +2522,7 @@
       );
 
       const revealElements = document.querySelectorAll(
-        ".card, .hero-copy, .hero-panel, .testimonial, .gallery-event-button, .gallery-stage, .contact-info, .contact-form"
+        ".card, .hero-copy, .hero-panel, .testimonial, .gallery-event-button, .gallery-stage, .contact-info, .contact-form, .director-intro"
       );
       revealElements.forEach((el) => {
         el.style.opacity = "var(--reveal-opacity, 0)";
@@ -2397,37 +2586,108 @@
         event.preventDefault();
         const form = event.target;
         const data = Object.fromEntries(new FormData(form));
+        const preferredContact = data.preferredContact || "WhatsApp";
 
         const formatEventDate = (value) => {
           if (!value) {
             return "";
           }
-          const date = new Date(value);
-          if (Number.isNaN(date.getTime())) {
-            return value;
+          const [year, month, day] = value.split("-");
+          if (year && month && day) {
+            return `${day}/${month}/${year}`;
           }
-          return date.toLocaleDateString(undefined, {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          });
+          return value;
         };
 
         const lines = [
           "Hi Shelter Sky Events!",
           "",
-          `My name is ${data.name}.`,
+          data.name ? `My name is ${data.name}.` : "",
           data.eventType ? `Event type: ${data.eventType}` : "",
           data.eventDate ? `Preferred date: ${formatEventDate(data.eventDate)}` : "",
           data.location ? `Location: ${data.location}` : "",
           data.guestCount ? `Estimated guests: ${Number(data.guestCount).toLocaleString()}` : "",
           data.details ? `Event details: ${data.details}` : "",
-          `You can reach me on ${data.email || "email"}${data.phone ? ` / ${data.phone}` : ""}.`,
-        ].filter(Boolean);
+        ];
 
-        const summary = lines.map((line) => encodeURIComponent(line)).join("%0A");
+        const contactDetails = [];
+        if (preferredContact) {
+          contactDetails.push(`Preferred contact: ${preferredContact}`);
+        }
+        if (data.email) {
+          contactDetails.push(`Email: ${data.email}`);
+        }
+        if (data.phone) {
+          contactDetails.push(`Phone: ${data.phone}`);
+        }
+        if (contactDetails.length) {
+          lines.push(contactDetails.join(" · "));
+        }
+
+        const message = lines.filter(Boolean).join("\n");
+        const encodedMessage = encodeURIComponent(message);
         const subject = encodeURIComponent("Event planning request");
-        window.location.href = `mailto:bookings@shelterskyevents.com?subject=${subject}&body=${summary}`;
+        const confirmationIntro =
+          preferredContact === "Email"
+            ? "We'll compose an email"
+            : preferredContact === "Mobile"
+            ? "We'll start a text message"
+            : "We'll open WhatsApp chats";
+        const confirmMessage = `${confirmationIntro} with this message:\n\n${message}\n\nContinue?`;
+
+        if (!window.confirm(confirmMessage)) {
+          return;
+        }
+
+        if (preferredContact === "Email") {
+          const recipients = ["bookings@shelterskyevents.com", "shelterskyevents@gmail.com"].join(",");
+          window.location.href = `mailto:${recipients}?subject=${subject}&body=${encodedMessage}`;
+        } else if (preferredContact === "Mobile") {
+          const numbers = ["+254724016269", "+254787458511"];
+          numbers.forEach((number, index) => {
+            const smsUrl = `sms:${number}?&body=${encodedMessage}`;
+            const delay = index * 400;
+            setTimeout(() => {
+              window.open(smsUrl, "_blank");
+            }, delay);
+          });
+        } else {
+          const numbers = ["254724016269", "254787458511"];
+          const openWhatsApp = (number, index) => {
+            const appUrl = `whatsapp://send?phone=${number}&text=${encodedMessage}`;
+            const webUrl = `https://wa.me/${number}?text=${encodedMessage}`;
+            const delay = index * 600;
+
+            setTimeout(() => {
+              const popup = window.open(appUrl, "_blank");
+
+              if (!popup) {
+                window.location.href = appUrl;
+              }
+
+              const fallback = () => {
+                window.open(webUrl, "_blank", "noopener");
+              };
+
+              setTimeout(() => {
+                try {
+                  if (!popup || popup.closed) {
+                    fallback();
+                  }
+                } catch (error) {
+                  fallback();
+                }
+              }, 1500);
+            }, delay);
+          };
+
+          numbers.forEach(openWhatsApp);
+        }
+
+        if (typeof form.reset === "function") {
+          form.reset();
+          updateGuestSlider();
+        }
       });
     </script>
   </body>
