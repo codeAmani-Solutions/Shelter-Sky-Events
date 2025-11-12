@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1066">
+  <defs>
+    <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#033019" />
+      <stop offset="50%" stop-color="#0b7a4f" />
+      <stop offset="100%" stop-color="#b4ffb5" />
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1066" fill="url(#grad3)" />
+  <g opacity="0.35" fill="#fff">
+    <circle cx="360" cy="280" r="220" />
+    <circle cx="1240" cy="240" r="240" />
+    <circle cx="980" cy="500" r="200" />
+  </g>
+  <g fill="#f5ffe9" opacity="0.85">
+    <rect x="260" y="520" width="260" height="180" rx="24" />
+    <rect x="560" y="460" width="240" height="220" rx="24" />
+    <rect x="840" y="500" width="260" height="200" rx="30" />
+    <rect x="1140" y="540" width="220" height="160" rx="24" />
+  </g>
+  <path d="M0 840c160-80 320-80 480 0s320 80 480 0 320-80 480 0 320 80 480 0v226H0z" fill="#dcffe0" opacity="0.6" />
+  <text x="140" y="180" font-family="'Playfair Display', serif" font-size="118" fill="#f4ffe7" opacity="0.9">
+    Garden soirée
+  </text>
+  <text x="140" y="270" font-family="'DM Sans', sans-serif" font-size="60" fill="#ecffdd" opacity="0.75">
+    Lavington, Nairobi
+  </text>
+</svg>
