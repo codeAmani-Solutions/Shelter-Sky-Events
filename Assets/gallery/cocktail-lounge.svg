@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1066">
+  <defs>
+    <linearGradient id="grad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3a0246" />
+      <stop offset="50%" stop-color="#8c1666" />
+      <stop offset="100%" stop-color="#ffb673" />
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1066" fill="url(#grad4)" />
+  <g opacity="0.4" fill="#ffd9f1">
+    <circle cx="420" cy="260" r="220" />
+    <circle cx="1180" cy="260" r="220" />
+    <circle cx="820" cy="520" r="240" />
+  </g>
+  <g fill="#fff0f8" opacity="0.7">
+    <rect x="300" y="560" width="220" height="180" rx="48" />
+    <rect x="540" y="520" width="260" height="200" rx="48" />
+    <rect x="840" y="560" width="220" height="180" rx="48" />
+    <rect x="1080" y="520" width="260" height="200" rx="48" />
+  </g>
+  <text x="140" y="180" font-family="'Playfair Display', serif" font-size="118" fill="#fff3f7" opacity="0.92">
+    Cocktail lounge
+  </text>
+  <text x="140" y="270" font-family="'DM Sans', sans-serif" font-size="60" fill="#ffe2f4" opacity="0.8">
+    Riverside Drive, Nairobi
+  </text>
+</svg>
