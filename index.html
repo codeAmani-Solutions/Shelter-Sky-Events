@@ -306,15 +306,19 @@
       }
 
       .btn-ghost {
-        background: var(--surface);
-        border-color: var(--border);
-        color: var(--text);
+        background: #25d366;
+        border-color: #1ebe5d;
+        color: #042b14;
+        box-shadow: 0 14px 30px rgba(37, 211, 102, 0.3);
       }
 
       .btn-ghost:hover,
       .btn-ghost:focus-visible {
-        background: color-mix(in srgb, var(--surface) 70%, var(--brand) 30%);
-        border-color: var(--brand);
+        background: #1ebe5d;
+        border-color: #18a54c;
+        color: #031f0f;
+        transform: translateY(-2px);
+        box-shadow: 0 20px 36px rgba(30, 190, 93, 0.36);
       }
 
       .hero-panel {
@@ -380,7 +384,12 @@
 
 
       .grid.columns-2 {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+
+      .testimonials-note {
+        margin-bottom: clamp(24px, 5vw, 32px);
+        max-width: 540px;
       }
 
       .card {
@@ -426,46 +435,56 @@
       }
 
       .service-card {
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        background: linear-gradient(160deg, rgba(76, 47, 193, 0.96), rgba(134, 69, 240, 0.9) 55%, rgba(182, 113, 255, 0.82));
-        color: #ffffff;
-        box-shadow: 0 30px 50px rgba(26, 36, 54, 0.45);
+        border: 1px solid color-mix(in srgb, var(--border) 55%, var(--brand) 45%);
+        background: linear-gradient(
+          160deg,
+          color-mix(in srgb, var(--surface-strong) 88%, var(--brand) 12%),
+          color-mix(in srgb, var(--surface) 80%, var(--brand-2) 20%) 55%,
+          color-mix(in srgb, var(--surface) 88%, var(--brand) 12%)
+        );
+        color: var(--text);
+        box-shadow: 0 30px 50px rgba(7, 16, 25, 0.45);
         padding: clamp(32px, 5vw, 40px);
         position: relative;
         overflow: hidden;
         isolation: isolate;
       }
 
-      :root[data-theme="light"] .service-card,
-      :root:not([data-theme]) .service-card {
-        color: #ffffff;
+      :root[data-theme="light"] .service-card {
+        border-color: color-mix(in srgb, var(--border) 65%, var(--brand) 35%);
+        background: linear-gradient(
+          160deg,
+          color-mix(in srgb, #ffffff 88%, var(--brand) 12%),
+          color-mix(in srgb, #ffffff 82%, var(--brand-2) 18%) 55%,
+          color-mix(in srgb, #ffffff 90%, var(--brand) 10%)
+        );
       }
 
       .service-card::before {
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(140deg, rgba(255, 255, 255, 0.18), transparent 65%);
+        background: linear-gradient(140deg, rgba(255, 255, 255, 0.25), transparent 65%);
         opacity: 1;
         z-index: -1;
       }
 
       .service-card:hover,
       .service-card:focus-within {
-        border-color: rgba(255, 255, 255, 0.36);
-        box-shadow: 0 36px 62px rgba(16, 25, 45, 0.55);
+        border-color: color-mix(in srgb, var(--brand) 60%, transparent 40%);
+        box-shadow: 0 36px 62px rgba(7, 16, 25, 0.55);
       }
 
       .service-icon {
         width: 64px;
         height: 64px;
         border-radius: 50%;
-        background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0));
-        border: 1px solid rgba(255, 255, 255, 0.24);
+        background: radial-gradient(circle at 35% 35%, color-mix(in srgb, var(--brand) 45%, transparent), transparent 70%);
+        border: 1px solid color-mix(in srgb, var(--brand) 55%, transparent 45%);
         display: grid;
         place-items: center;
         margin-bottom: 18px;
-        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
       }
 
       .service-card h3 {
@@ -475,7 +494,11 @@
 
       .service-card p {
         margin: 0;
-        color: rgba(255, 255, 255, 0.82);
+        color: color-mix(in srgb, var(--text) 78%, transparent 22%);
+      }
+
+      :root[data-theme="light"] .service-card p {
+        color: color-mix(in srgb, var(--muted) 85%, transparent 15%);
       }
 
       .card h3 {
@@ -571,121 +594,246 @@
       }
 
       .gallery {
-        overflow: hidden;
+        display: grid;
+        gap: clamp(28px, 6vw, 48px);
       }
 
-      .gallery-controls {
-        display: flex;
-        flex-wrap: wrap;
+      .gallery-header {
+        display: grid;
         gap: 12px;
-        margin-bottom: clamp(18px, 4vw, 28px);
+        max-width: 640px;
       }
 
-      .chip-filter {
+      .gallery-layout {
+        display: grid;
+        gap: clamp(24px, 5vw, 48px);
+      }
+
+      .gallery-events {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        padding: clamp(18px, 4vw, 28px);
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        background: color-mix(in srgb, var(--surface) 85%, transparent 15%);
+        box-shadow: var(--shadow);
+      }
+
+      .gallery-event-button {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 18px;
+        padding: 16px 20px;
+        border-radius: 18px;
         border: 1px solid transparent;
-        background: rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.04);
         color: inherit;
         font: inherit;
         cursor: pointer;
-        transition: background var(--transition), color var(--transition),
-          border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+        transition: transform var(--transition), border-color var(--transition),
+          background var(--transition), box-shadow var(--transition);
       }
 
-      .chip-filter:hover {
-        background: rgba(255, 255, 255, 0.14);
+      .gallery-event-button .label {
+        display: grid;
+        gap: 4px;
+        text-align: left;
       }
 
-      .chip-filter:focus-visible {
+      .gallery-event-button .label strong {
+        font-weight: 600;
+        font-size: 1.05rem;
+      }
+
+      .gallery-event-button .label span {
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+
+      .gallery-event-button .chevron {
+        font-size: 1.3rem;
+        opacity: 0.6;
+        transition: transform var(--transition), opacity var(--transition);
+      }
+
+      .gallery-event-button:hover .chevron,
+      .gallery-event-button:focus-visible .chevron,
+      .gallery-event-button[aria-selected="true"] .chevron {
+        opacity: 1;
+        transform: translateX(4px);
+      }
+
+      .gallery-event-button:hover,
+      .gallery-event-button:focus-visible {
+        transform: translateY(-2px);
+        border-color: rgba(255, 255, 255, 0.24);
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .gallery-event-button:focus-visible {
         outline: 2px solid var(--accent);
         outline-offset: 2px;
       }
 
-      .chip-filter.active {
-        background: linear-gradient(135deg, var(--brand), var(--brand-2));
-        color: #041421;
-        border-color: rgba(255, 255, 255, 0.18);
-        box-shadow: 0 16px 34px rgba(26, 191, 154, 0.26);
-        transform: translateY(-2px);
+      .gallery-event-button[aria-selected="true"] {
+        background: linear-gradient(135deg, rgba(93, 242, 214, 0.12), rgba(141, 166, 255, 0.18));
+        border-color: rgba(93, 242, 214, 0.32);
+        box-shadow: 0 22px 48px rgba(11, 35, 48, 0.32);
       }
 
-      .gallery-track {
+      .gallery-stage {
+        --gallery-accent: var(--brand);
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        background: linear-gradient(145deg, color-mix(in srgb, var(--surface-strong) 88%, transparent 12%),
+            color-mix(in srgb, var(--gallery-accent) 24%, transparent 76%));
+        box-shadow: var(--shadow);
+        padding: clamp(18px, 4vw, 32px);
         display: grid;
         gap: clamp(18px, 4vw, 28px);
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       }
 
-      .gallery-card {
+      .gallery-stage-media {
         position: relative;
-        aspect-ratio: 4 / 3;
-        border-radius: 22px;
+        border-radius: calc(var(--radius) - 6px);
         overflow: hidden;
-        border: 1px solid var(--border);
-        background: rgba(255, 255, 255, 0.06);
-        box-shadow: var(--shadow);
+        aspect-ratio: 5 / 3;
         isolation: isolate;
-        transition: transform var(--transition), box-shadow var(--transition);
       }
 
-      .gallery-card:hover,
-      .gallery-card:focus-within {
-        transform: translateY(-4px);
-        box-shadow: 0 28px 54px rgba(4, 10, 18, 0.4);
-      }
-
-      .gallery-card img {
+      .gallery-stage-media img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        object-position: center;
         display: block;
-        transform: scale(1.02);
-        transition: transform var(--transition);
+        transition: transform 320ms ease;
       }
 
-      .gallery-card:hover img,
-      .gallery-card:focus-within img {
-        transform: scale(1.08);
+      .gallery-stage-media:hover img,
+      .gallery-stage-media:focus-within img {
+        transform: scale(1.03);
       }
 
-      .gallery-card::after {
+      .gallery-control {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        border: none;
+        background: rgba(6, 11, 17, 0.64);
+        color: #f6f9ff;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        cursor: pointer;
+        transition: background var(--transition), transform var(--transition);
+      }
+
+      .gallery-control:hover,
+      .gallery-control:focus-visible {
+        background: rgba(6, 11, 17, 0.88);
+        transform: translateY(-50%) scale(1.05);
+      }
+
+      .gallery-control:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
+      .gallery-control.prev {
+        left: 16px;
+      }
+
+      .gallery-control.next {
+        right: 16px;
+      }
+
+      .gallery-stage-info {
+        display: grid;
+        gap: 12px;
+      }
+
+      .gallery-stage-tag {
+        justify-self: start;
+        padding: 6px 16px;
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--gallery-accent) 24%, transparent 76%);
+        color: inherit;
+        font-size: 0.78rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-weight: 700;
+      }
+
+      .gallery-stage-title {
+        margin: 0;
+        font-size: clamp(1.35rem, 2.6vw, 1.9rem);
+        font-weight: 600;
+      }
+
+      .gallery-stage-meta {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .gallery-stage-description {
+        margin: 0;
+        max-width: 60ch;
+      }
+
+      .gallery-thumbs {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .gallery-thumb {
+        border: none;
+        padding: 0;
+        border-radius: 14px;
+        overflow: hidden;
+        background: transparent;
+        cursor: pointer;
+        position: relative;
+        flex: 1 1 96px;
+        max-width: 148px;
+        aspect-ratio: 4 / 3;
+        transition: transform var(--transition), box-shadow var(--transition);
+      }
+
+      .gallery-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .gallery-thumb::after {
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(180deg, rgba(4, 10, 18, 0) 0%, rgba(4, 10, 18, 0.78) 78%);
-        z-index: 1;
+        border: 2px solid transparent;
+        border-radius: inherit;
+        transition: border-color var(--transition);
       }
 
-      .gallery-card figcaption {
-        position: absolute;
-        inset: auto 0 0;
-        padding: clamp(18px, 4vw, 26px);
-        display: grid;
-        gap: 8px;
-        z-index: 2;
+      .gallery-thumb:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
       }
 
-      .gallery-tag {
-        justify-self: start;
-        font-size: 0.75rem;
-        font-weight: 600;
-        padding: 6px 12px;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.18);
-        color: #f6f9ff;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
+      .gallery-thumb:hover,
+      .gallery-thumb:focus-visible {
+        transform: translateY(-2px);
+        box-shadow: 0 18px 34px rgba(4, 10, 18, 0.34);
       }
 
-      .gallery-title {
-        font-size: 1.1rem;
-        font-weight: 600;
-        margin: 0;
-      }
-
-      .gallery-meta {
-        font-size: 0.85rem;
-        color: rgba(246, 249, 255, 0.78);
-        margin: 0;
+      .gallery-thumb[aria-current="true"]::after {
+        border-color: color-mix(in srgb, var(--gallery-accent) 46%, transparent 54%);
       }
 
       .contact-card {
@@ -718,19 +866,100 @@
         color: var(--text);
       }
 
-      form {
+      .contact-form {
         display: grid;
-        gap: 18px;
+        gap: clamp(18px, 3vw, 24px);
       }
 
-      label {
+      .contact-form .input-grid {
+        display: grid;
+        gap: 18px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+
+      .contact-form label,
+      .contact-form fieldset {
         display: grid;
         gap: 8px;
         font-weight: 500;
       }
 
+      .contact-form fieldset {
+        border: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .contact-form fieldset legend {
+        font-weight: 600;
+      }
+
+      .contact-form .option-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .contact-form .option-chip {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+
+      .contact-form .option-chip input {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+      }
+
+      .contact-form .option-chip span {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 18px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--muted);
+        font-weight: 500;
+        transition: background var(--transition), color var(--transition), border var(--transition), box-shadow var(--transition);
+      }
+
+      .contact-form .option-chip:hover span {
+        background: rgba(255, 255, 255, 0.14);
+      }
+
+      .contact-form .option-chip input:checked + span {
+        background: linear-gradient(120deg, var(--brand), var(--brand-2));
+        color: #040a12;
+        border-color: transparent;
+        box-shadow: 0 12px 24px rgba(26, 191, 154, 0.3);
+      }
+
+      .contact-form .option-chip input:focus-visible + span {
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
+      }
+
+      .form-field {
+        display: grid;
+        gap: 10px;
+      }
+
+      .slider-control {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+      }
+
       input,
-      textarea {
+      textarea,
+      input[type="date"] {
         border-radius: 12px;
         border: 1px solid var(--border);
         padding: 12px 14px;
@@ -740,10 +969,97 @@
         transition: border var(--transition), background var(--transition), box-shadow var(--transition);
       }
 
+      input[type="date"] {
+        min-height: 48px;
+      }
+
+      input[type="range"] {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 10px;
+        border-radius: 999px;
+        background: linear-gradient(
+          90deg,
+          var(--brand) 0%,
+          var(--brand) var(--progress, 0%),
+          rgba(255, 255, 255, 0.16) var(--progress, 0%),
+          rgba(255, 255, 255, 0.16) 100%
+        );
+        border: none;
+        cursor: pointer;
+      }
+
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: var(--brand);
+        border: 2px solid color-mix(in srgb, var(--brand-2) 50%, transparent);
+        box-shadow: 0 0 0 4px rgba(6, 12, 20, 0.45);
+        transition: transform var(--transition);
+      }
+
+      input[type="range"]::-moz-range-track {
+        height: 10px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.16);
+      }
+
+      input[type="range"]::-moz-range-progress {
+        height: 10px;
+        border-radius: 999px;
+        background: var(--brand);
+      }
+
+      input[type="range"]::-moz-range-thumb {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: var(--brand);
+        border: 2px solid color-mix(in srgb, var(--brand-2) 50%, transparent);
+        box-shadow: 0 0 0 4px rgba(6, 12, 20, 0.45);
+        transition: transform var(--transition);
+      }
+
+      input[type="range"]:active::-webkit-slider-thumb,
+      input[type="range"]:active::-moz-range-thumb {
+        transform: scale(1.05);
+      }
+
+      .slider-control output {
+        min-width: 110px;
+        font-weight: 700;
+        color: var(--brand);
+        text-align: right;
+      }
+
       @media (prefers-color-scheme: light) {
         input,
         textarea {
           background: rgba(255, 255, 255, 0.92);
+        }
+
+        .contact-form .option-chip span {
+          background: rgba(12, 26, 41, 0.06);
+        }
+
+        .contact-form .option-chip:hover span {
+          background: rgba(12, 26, 41, 0.12);
+        }
+
+        input[type="range"] {
+          background: linear-gradient(
+            90deg,
+            var(--brand) 0%,
+            var(--brand) var(--progress, 0%),
+            rgba(12, 26, 41, 0.12) var(--progress, 0%),
+            rgba(12, 26, 41, 0.12) 100%
+          );
+        }
+
+        input[type="range"]::-moz-range-track {
+          background: rgba(12, 26, 41, 0.12);
         }
       }
 
@@ -878,6 +1194,17 @@
         color: var(--text);
       }
 
+      @media (min-width: 960px) {
+        .gallery-layout {
+          grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+          align-items: start;
+        }
+
+        .gallery-thumbs {
+          justify-content: flex-start;
+        }
+      }
+
       @media (max-width: 900px) {
         .hero-grid,
         .contact-card {
@@ -886,6 +1213,10 @@
 
         .service-grid {
           grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        }
+
+        .gallery-events {
+          padding: clamp(14px, 5vw, 22px);
         }
 
         .nav-links {
@@ -938,7 +1269,8 @@
         .hero-copy,
         .hero-panel,
         .contact-info,
-        .contact-form {
+        .contact-form,
+        .gallery-stage {
           border-radius: 18px;
         }
 
@@ -946,12 +1278,16 @@
           min-height: auto;
         }
 
-        .gallery-track {
-          gap: 12px;
+        .gallery-stage {
+          padding: clamp(14px, 7vw, 24px);
         }
 
-        .gallery-card {
-          border-radius: 18px;
+        .gallery-stage-media {
+          aspect-ratio: 4 / 3;
+        }
+
+        .gallery-thumb {
+          flex: 1 1 calc(50% - 12px);
         }
       }
     </style>
@@ -982,8 +1318,8 @@
               <span class="eyebrow">Nairobi &amp; neighboring counties</span>
               <h1 id="hero-title">Full-service event design, rentals &amp; coordination</h1>
               <p class="lead">
-                Shelter Sky Events transforms empty spaces into vibrant celebrations with curated tents, signature décor, seating, lighting,
-                and on-the-day management.
+                Shelter Sky Events transforms empty spaces into vibrant celebrations with curated tents, comfortable chairs, and signature
+                décor—coordinated for a seamless experience.
               </p>
               <div class="cta-row">
                 <a class="btn btn-primary" href="#contact">Plan your event</a>
@@ -1043,13 +1379,41 @@
 
         <section id="gallery" aria-labelledby="gallery-title">
           <div class="container gallery">
-            <span class="pill">Recent work</span>
-            <h2 class="section-title" id="gallery-title">Atmospheres we’ve created</h2>
-            <p class="section-subtitle">
-              Browse by tents, chairs, or decor to see how we tailor each celebration. Ask about our full lookbooks during your consultation.
-            </p>
-            <div class="gallery-controls" id="gallery-filters" role="toolbar" aria-label="Filter gallery"></div>
-            <div class="gallery-track" id="gallery-track" role="list" aria-live="polite"></div>
+            <div class="gallery-header">
+              <span class="pill">Recent work</span>
+              <h2 class="section-title" id="gallery-title">Atmospheres we’ve created</h2>
+              <p class="section-subtitle">
+                Explore three signature installations and cycle through the full photo sets to see how our tents, chairs, and décor transform spaces.
+              </p>
+            </div>
+            <div class="gallery-layout">
+              <div class="gallery-events" id="gallery-events" role="tablist" aria-label="Past event showcases"></div>
+              <div
+                class="gallery-stage"
+                id="gallery-stage"
+                role="tabpanel"
+                aria-live="polite"
+                aria-labelledby="gallery-stage-title"
+                tabindex="0"
+              >
+                <div class="gallery-stage-media">
+                  <img id="gallery-stage-image" src="" alt="" loading="lazy" />
+                  <button class="gallery-control prev" type="button" id="gallery-prev" aria-label="Previous photo">
+                    <span aria-hidden="true">&#10094;</span>
+                  </button>
+                  <button class="gallery-control next" type="button" id="gallery-next" aria-label="Next photo">
+                    <span aria-hidden="true">&#10095;</span>
+                  </button>
+                </div>
+                <div class="gallery-stage-info">
+                  <span class="gallery-stage-tag" id="gallery-stage-tag"></span>
+                  <h3 class="gallery-stage-title" id="gallery-stage-title"></h3>
+                  <p class="gallery-stage-meta" id="gallery-stage-meta"></p>
+                  <p class="gallery-stage-description" id="gallery-stage-description"></p>
+                </div>
+                <div class="gallery-thumbs" id="gallery-thumbs" role="list"></div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -1057,6 +1421,7 @@
           <div class="container">
             <span class="pill">Reviews</span>
             <h2 class="section-title" id="testimonials-title">Clients share the Shelter Sky experience</h2>
+            <p class="section-subtitle testimonials-note">More reviews coming soon — here’s a recent client highlight.</p>
             <div class="grid columns-2" id="testimonial-grid" aria-live="polite"></div>
           </div>
         </section>
@@ -1093,21 +1458,97 @@
                 </ul>
               </div>
               <form class="contact-form" aria-label="Request a proposal">
-                <label>
-                  Full name
-                  <input name="name" type="text" placeholder="e.g. Jane Wanjiku" autocomplete="name" required />
-                </label>
-                <label>
-                  Email address
-                  <input name="email" type="email" placeholder="name@email.com" autocomplete="email" required />
-                </label>
-                <label>
-                  Phone number
-                  <input name="phone" type="tel" placeholder="Mobile or WhatsApp" autocomplete="tel" />
-                </label>
-                <label>
+                <div class="input-grid">
+                  <label for="fullName">
+                    Full name
+                    <input
+                      id="fullName"
+                      name="name"
+                      type="text"
+                      placeholder="e.g. Jane Wanjiku"
+                      autocomplete="name"
+                      required
+                    />
+                  </label>
+                  <label for="emailAddress">
+                    Email address
+                    <input
+                      id="emailAddress"
+                      name="email"
+                      type="email"
+                      placeholder="name@email.com"
+                      autocomplete="email"
+                      required
+                    />
+                  </label>
+                  <label for="phoneNumber">
+                    Phone number
+                    <input
+                      id="phoneNumber"
+                      name="phone"
+                      type="tel"
+                      placeholder="Mobile or WhatsApp"
+                      autocomplete="tel"
+                    />
+                  </label>
+                </div>
+                <fieldset>
+                  <legend>Event type</legend>
+                  <div class="option-group">
+                    <label class="option-chip">
+                      <input type="radio" name="eventType" value="Wedding" checked />
+                      <span>Wedding</span>
+                    </label>
+                    <label class="option-chip">
+                      <input type="radio" name="eventType" value="Corporate" />
+                      <span>Corporate</span>
+                    </label>
+                    <label class="option-chip">
+                      <input type="radio" name="eventType" value="Private" />
+                      <span>Private</span>
+                    </label>
+                  </div>
+                </fieldset>
+                <div class="input-grid">
+                  <label for="eventDate">
+                    Event date
+                    <input id="eventDate" name="eventDate" type="date" />
+                  </label>
+                  <label for="eventLocation">
+                    Location
+                    <input
+                      id="eventLocation"
+                      name="location"
+                      type="text"
+                      placeholder="Venue or area (e.g. Karen)"
+                      autocomplete="address-level2"
+                    />
+                  </label>
+                </div>
+                <div class="form-field">
+                  <label for="guestCount">Estimated guest count</label>
+                  <div class="slider-control">
+                    <input
+                      id="guestCount"
+                      name="guestCount"
+                      type="range"
+                      min="50"
+                      max="800"
+                      step="10"
+                      value="150"
+                      aria-describedby="guestCountOutput"
+                    />
+                    <output id="guestCountOutput" for="guestCount">150 guests</output>
+                  </div>
+                </div>
+                <label for="eventDetails">
                   Event details
-                  <textarea name="details" placeholder="Date, location, guest count, desired atmosphere" required></textarea>
+                  <textarea
+                    id="eventDetails"
+                    name="details"
+                    placeholder="Theme, rentals needed, timelines, anything else"
+                    required
+                  ></textarea>
                 </label>
                 <button class="btn btn-primary" type="submit">Request proposal</button>
                 <small style="color: var(--muted);">We reply within 24 hours. Your information remains private.</small>
@@ -1164,15 +1605,20 @@
       </article>
     </template>
 
-    <template id="gallery-template">
-      <figure class="gallery-card" role="listitem">
+    <template id="gallery-event-template">
+      <button class="gallery-event-button" type="button" role="tab" aria-selected="false">
+        <div class="label">
+          <strong></strong>
+          <span></span>
+        </div>
+        <span class="chevron" aria-hidden="true">&#8594;</span>
+      </button>
+    </template>
+
+    <template id="gallery-thumb-template">
+      <button class="gallery-thumb" type="button" role="listitem" aria-current="false">
         <img alt="" loading="lazy" />
-        <figcaption>
-          <span class="gallery-tag"></span>
-          <p class="gallery-title"></p>
-          <p class="gallery-meta"></p>
-        </figcaption>
-      </figure>
+      </button>
     </template>
 
     <script>
@@ -1181,85 +1627,6 @@
           quote:
             "Shelter Sky translated our corporate strategy into a high-energy launch that wowed over 400 guests. The production ran flawlessly.",
           name: "James · Regional Marketing Lead",
-        },
-        {
-          quote:
-            "Ann and team thought through every detail for our garden wedding. The tented reception looked magical and the day flowed with ease.",
-          name: "Njeri & Alex · Newlyweds",
-        },
-        {
-          quote: "Professional, timely, and creative. They delivered lounge pods and décor that elevated our annual staff party.",
-          name: "Mercy · HR Director",
-        },
-        {
-          quote: "Our guests loved the ambience and comfort. Shelter Sky handled décor, rentals, and coordination beyond expectations.",
-          name: "Winnie · Event Host",
-        },
-      ];
-
-      const galleryItems = [
-        {
-          src: "Assets/gallery/photos/Event1_Image1.JPG",
-          alt: "Twin-peak white marquee tent set on a manicured lawn with banquet tables underneath.",
-          title: "Twin-peak garden reception",
-          category: "Tents",
-          meta: "Karen Country Club · 300 guests",
-        },
-        {
-          src: "Assets/gallery/photos/Event1_Image2.JPG",
-          alt: "Aerial view of a double-peak marquee surrounded by lush trees and guest tables.",
-          title: "Estate marquee overview",
-          category: "Tents",
-          meta: "Limuru private estate",
-        },
-        {
-          src: "Assets/gallery/photos/Event1_Image3.JPG",
-          alt: "Side profile of a stretch tent with clear side walls showing set dinner tables.",
-          title: "Open lawn canopy",
-          category: "Tents",
-          meta: "Gigiri grounds",
-        },
-        {
-          src: "Assets/gallery/photos/Event2_Image1.JPG",
-          alt: "Round guest table styled with burgundy linens, white chairs, and fresh florals.",
-          title: "Bespoke table styling",
-          category: "Decor",
-          meta: "Luxury tablescape",
-        },
-        {
-          src: "Assets/gallery/photos/Event2_Image2.JPG",
-          alt: "Row of pagoda tents draped in purple and orange fabric overlooking reception seating.",
-          title: "Vibrant pagoda series",
-          category: "Tents",
-          meta: "Two Rivers grounds",
-        },
-        {
-          src: "Assets/gallery/photos/Event2_Image3.JPG",
-          alt: "Overhead photograph showcasing multiple pagoda tents aligned across a lawn.",
-          title: "Pagoda aerial layout",
-          category: "Tents",
-          meta: "Corporate fun day",
-        },
-        {
-          src: "Assets/gallery/photos/Event3_Image1.JPG",
-          alt: "Circular table with orange runner, floral centerpiece, and white chairs tied with purple sashes.",
-          title: "Colour-blocked seating",
-          category: "Chairs",
-          meta: "Custom linen + chair combo",
-        },
-        {
-          src: "Assets/gallery/photos/Event3_Image2.JPG",
-          alt: "Intimate red and white pagoda lounge with draped ceiling and round tables.",
-          title: "Intimate pagoda lounge",
-          category: "Tents",
-          meta: "Garden cocktail set",
-        },
-        {
-          src: "Assets/gallery/photos/Event3_Image3.JPG",
-          alt: "Bird’s-eye view of a pagoda tent with alternating red and white panels on a lawn.",
-          title: "Courtyard pagoda",
-          category: "Tents",
-          meta: "Villa Rosa grounds",
         },
       ];
 
@@ -1272,65 +1639,289 @@
         testimonialContainer.appendChild(node);
       });
 
-      const galleryContainer = document.getElementById("gallery-track");
-      const galleryFilters = document.getElementById("gallery-filters");
-      const galleryTemplate = document.getElementById("gallery-template");
-
-      const categoryOrder = ["Tents", "Chairs", "Decor"];
-      const categories = [
-        "All",
-        ...categoryOrder.filter((category) =>
-          galleryItems.some((item) => item.category === category)
-        ),
+      const galleryFiles = [
+        "Event1_Image1.JPG",
+        "Event1_Image2.JPG",
+        "Event1_Image3.JPG",
+        "Event2_Image1.JPG",
+        "Event2_Image2.JPG",
+        "Event2_Image3.JPG",
+        "Event3_Image1.JPG",
+        "Event3_Image2.JPG",
+        "Event3_Image3.JPG",
       ];
 
-      let activeFilter = "All";
+      const rootStyles = getComputedStyle(document.documentElement);
+      const defaultAccent = rootStyles.getPropertyValue("--brand") || "#5df2d6";
 
-      const renderGallery = () => {
-        galleryContainer.innerHTML = "";
-        const filtered = galleryItems.filter(
-          (item) => activeFilter === "All" || item.category === activeFilter
-        );
+      const eventDescriptions = {
+        Event1: {
+          title: "Garden marquee wedding",
+          tag: "Tents & lighting",
+          meta: "Karen Country Club · 300 guests",
+          description:
+            "Layered draping, chandeliers, and cozy lounge pods transformed this golf course lawn into a romantic sunset reception.",
+          accent: "#8da6ff",
+          altText: [
+            "Golden-hour view of a twin-peak marquee tent on a manicured lawn with banquet tables set beneath.",
+            "Interior of the marquee with warm uplighting, round tables, and crystal chandeliers suspended above the dance floor.",
+            "Evening stretch tent with clear side walls revealing guests dining under twinkling bistro lights.",
+          ],
+        },
+        Event2: {
+          title: "Corporate hospitality village",
+          tag: "Chairs & lounges",
+          meta: "Two Rivers Grounds · 250 guests",
+          description:
+            "Modular seating clusters, branded colour palettes, and shaded lounges kept guests comfortable between activations.",
+          accent: "#5df2d6",
+          altText: [
+            "Round guest table layered with burgundy linens, white chiavari chairs, and lush floral centerpieces.",
+            "Series of pagoda tents draped in Shelter Sky colours framing relaxed lounge seating and cocktail tables.",
+            "Overhead view of aligned pagoda tents and seating pods creating a mini event village on the lawn.",
+          ],
+        },
+        Event3: {
+          title: "Cultural celebration pavilion",
+          tag: "Decor & draping",
+          meta: "Thika Greens · 180 guests",
+          description:
+            "Patterned textiles, colour-blocked chair sashes, and layered lighting celebrated the couple’s heritage in style.",
+          accent: "#ff9f47",
+          altText: [
+            "Circular reception table with orange runner, floral centerpiece, and white chairs tied with purple sashes.",
+            "Intimate red and white pagoda lounge dressed with ceiling draping, round tables, and ambient lighting.",
+            "Bird’s-eye view of a pagoda tent with alternating red and white panels anchoring the celebration lawn.",
+          ],
+        },
+      };
 
-        filtered.forEach((item) => {
-          const node = galleryTemplate.content.cloneNode(true);
-          const figure = node.querySelector(".gallery-card");
-          figure.dataset.category = item.category;
-          const image = node.querySelector("img");
-          image.src = item.src;
-          image.alt = item.alt;
-          node.querySelector(".gallery-tag").textContent = item.category;
-          node.querySelector(".gallery-title").textContent = item.title;
-          node.querySelector(".gallery-meta").textContent = item.meta;
-          galleryContainer.appendChild(node);
+      const buildGalleryEvents = () => {
+        const grouped = galleryFiles.reduce((acc, file) => {
+          const match = file.match(/(Event\d+)_Image(\d+)/i);
+          if (!match) {
+            return acc;
+          }
+          const [, eventId, position] = match;
+          acc[eventId] = acc[eventId] || [];
+          acc[eventId].push({ file, position: Number(position) });
+          return acc;
+        }, {});
+
+        return Object.entries(grouped)
+          .map(([eventId, items]) => {
+            const { altText = [], accent, ...details } = eventDescriptions[eventId] ?? {};
+            items.sort((a, b) => a.position - b.position);
+            const images = items.map((item, index) => ({
+              src: `Assets/gallery/photos/${item.file}`,
+              alt:
+                altText[index] ?? `${details.title ?? eventId} highlight ${index + 1}`,
+            }));
+            return {
+              id: eventId,
+              title: details.title ?? eventId,
+              tag: details.tag ?? "Event showcase",
+              meta:
+                details.meta ??
+                `${items.length} photo${items.length > 1 ? "s" : ""}`,
+              description: details.description ?? "",
+              accent: accent ?? defaultAccent,
+              images,
+            };
+          })
+          .sort((a, b) => a.id.localeCompare(b.id));
+      };
+
+      const galleryEvents = buildGalleryEvents();
+
+      const eventsContainer = document.getElementById("gallery-events");
+      const eventTemplate = document.getElementById("gallery-event-template");
+      const thumbsTemplate = document.getElementById("gallery-thumb-template");
+      const stage = document.getElementById("gallery-stage");
+      const stageImage = document.getElementById("gallery-stage-image");
+      const stageTag = document.getElementById("gallery-stage-tag");
+      const stageTitle = document.getElementById("gallery-stage-title");
+      const stageMeta = document.getElementById("gallery-stage-meta");
+      const stageDescription = document.getElementById("gallery-stage-description");
+      const thumbsContainer = document.getElementById("gallery-thumbs");
+      const prevButton = document.getElementById("gallery-prev");
+      const nextButton = document.getElementById("gallery-next");
+
+      let activeEventIndex = 0;
+      let activeImageIndex = 0;
+
+      const updateEventButtons = () => {
+        const buttons = eventsContainer.querySelectorAll(".gallery-event-button");
+        buttons.forEach((button, index) => {
+          const isActive = index === activeEventIndex;
+          button.setAttribute("aria-selected", String(isActive));
+          button.tabIndex = isActive ? 0 : -1;
         });
       };
 
-      categories.forEach((category, index) => {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = `chip chip-filter${index === 0 ? " active" : ""}`;
-        button.dataset.filter = category;
-        button.textContent = category;
-        button.setAttribute("aria-pressed", index === 0 ? "true" : "false");
-        button.addEventListener("click", () => {
-          if (activeFilter === category) {
-            return;
-          }
-          activeFilter = category;
-          galleryFilters
-            .querySelectorAll(".chip-filter")
-            .forEach((chip) => {
-              const isActive = chip.dataset.filter === activeFilter;
-              chip.classList.toggle("active", isActive);
-              chip.setAttribute("aria-pressed", String(isActive));
-            });
-          renderGallery();
+      const updateThumbSelection = () => {
+        const thumbs = thumbsContainer.querySelectorAll(".gallery-thumb");
+        thumbs.forEach((thumb, index) => {
+          const isActive = index === activeImageIndex;
+          thumb.setAttribute("aria-current", String(isActive));
         });
-        galleryFilters.appendChild(button);
+      };
+
+      const buildThumbs = (event) => {
+        thumbsContainer.innerHTML = "";
+        event.images.forEach((image, index) => {
+          const node = thumbsTemplate.content.cloneNode(true);
+          const button = node.querySelector(".gallery-thumb");
+          const img = button.querySelector("img");
+          img.src = image.src;
+          img.alt = image.alt;
+          button.dataset.index = String(index);
+          button.setAttribute(
+            "aria-label",
+            `Show photo ${index + 1} of ${event.images.length}`
+          );
+          button.addEventListener("click", () => {
+            if (activeImageIndex === index) return;
+            activeImageIndex = index;
+            updateStage(false);
+          });
+          thumbsContainer.appendChild(node);
+        });
+      };
+
+      const updateStage = (rebuildThumbs = false) => {
+        const currentEvent = galleryEvents[activeEventIndex];
+        if (!currentEvent) {
+          stage.setAttribute("hidden", "true");
+          return;
+        }
+        stage.removeAttribute("hidden");
+        const image = currentEvent.images[activeImageIndex];
+        stage.style.setProperty("--gallery-accent", currentEvent.accent);
+        stageImage.src = image?.src ?? "";
+        stageImage.alt = image?.alt ?? currentEvent.title;
+        stageTag.textContent = currentEvent.tag;
+        stageTag.hidden = !currentEvent.tag;
+        stageTitle.textContent = currentEvent.title;
+        stageMeta.textContent = currentEvent.meta;
+        stageMeta.hidden = !currentEvent.meta;
+        stageDescription.textContent = currentEvent.description;
+        stageDescription.hidden = !currentEvent.description;
+        stage.setAttribute(
+          "aria-label",
+          `${currentEvent.title} photo ${activeImageIndex + 1} of ${currentEvent.images.length}`
+        );
+
+        if (rebuildThumbs) {
+          buildThumbs(currentEvent);
+        }
+
+        updateThumbSelection();
+      };
+
+      const renderEventButtons = () => {
+        eventsContainer.innerHTML = "";
+        galleryEvents.forEach((event, index) => {
+          const node = eventTemplate.content.cloneNode(true);
+          const button = node.querySelector(".gallery-event-button");
+          button.dataset.index = String(index);
+          button.querySelector("strong").textContent = event.title;
+          const subtitleParts = [event.tag];
+          subtitleParts.push(
+            `${event.images.length} photo${event.images.length > 1 ? "s" : ""}`
+          );
+          button.querySelector(".label span").textContent = subtitleParts
+            .filter(Boolean)
+            .join(" · ");
+          button.setAttribute("aria-controls", "gallery-stage");
+          button.addEventListener("click", () => {
+            if (activeEventIndex === index) return;
+            activeEventIndex = index;
+            activeImageIndex = 0;
+            updateEventButtons();
+            updateStage(true);
+            button.focus();
+          });
+          eventsContainer.appendChild(node);
+        });
+
+        updateEventButtons();
+      };
+
+      if (galleryEvents.length) {
+        renderEventButtons();
+        updateStage(true);
+      } else {
+        eventsContainer.innerHTML = "<p>No gallery events available.</p>";
+      }
+
+      const stepImage = (direction) => {
+        const currentEvent = galleryEvents[activeEventIndex];
+        if (!currentEvent) return;
+        const total = currentEvent.images.length;
+        activeImageIndex = (activeImageIndex + direction + total) % total;
+        updateStage(false);
+      };
+
+      prevButton.addEventListener("click", () => stepImage(-1));
+      nextButton.addEventListener("click", () => stepImage(1));
+
+      stage.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          stepImage(-1);
+        } else if (event.key === "ArrowRight") {
+          event.preventDefault();
+          stepImage(1);
+        }
       });
 
-      renderGallery();
+      eventsContainer.addEventListener("keydown", (event) => {
+        const buttons = Array.from(
+          eventsContainer.querySelectorAll(".gallery-event-button")
+        );
+        if (!buttons.length) {
+          return;
+        }
+        switch (event.key) {
+          case "ArrowRight":
+          case "ArrowDown":
+            event.preventDefault();
+            activeEventIndex = (activeEventIndex + 1) % buttons.length;
+            activeImageIndex = 0;
+            updateEventButtons();
+            updateStage(true);
+            buttons[activeEventIndex].focus();
+            break;
+          case "ArrowLeft":
+          case "ArrowUp":
+            event.preventDefault();
+            activeEventIndex =
+              (activeEventIndex - 1 + buttons.length) % buttons.length;
+            activeImageIndex = 0;
+            updateEventButtons();
+            updateStage(true);
+            buttons[activeEventIndex].focus();
+            break;
+          case "Home":
+            event.preventDefault();
+            activeEventIndex = 0;
+            activeImageIndex = 0;
+            updateEventButtons();
+            updateStage(true);
+            buttons[activeEventIndex].focus();
+            break;
+          case "End":
+            event.preventDefault();
+            activeEventIndex = buttons.length - 1;
+            activeImageIndex = 0;
+            updateEventButtons();
+            updateStage(true);
+            buttons[activeEventIndex].focus();
+            break;
+          default:
+        }
+      });
 
       document.getElementById("year").textContent = new Date().getFullYear();
 
@@ -1377,7 +1968,9 @@
         { threshold: 0.3 }
       );
 
-      const revealElements = document.querySelectorAll(".card, .hero-copy, .hero-panel, .testimonial, .gallery-card, .contact-info, .contact-form");
+      const revealElements = document.querySelectorAll(
+        ".card, .hero-copy, .hero-panel, .testimonial, .gallery-event-button, .gallery-stage, .contact-info, .contact-form"
+      );
       revealElements.forEach((el) => {
         el.style.opacity = "var(--reveal-opacity, 0)";
         el.style.transform = "translateY(var(--reveal-translate, 24px))";
@@ -1411,14 +2004,66 @@
         }
       });
 
-      document.querySelector(".contact-form").addEventListener("submit", (event) => {
+      const guestSlider = document.getElementById("guestCount");
+      const guestOutput = document.getElementById("guestCountOutput");
+
+      const updateGuestSlider = () => {
+        if (!guestSlider || !guestOutput) {
+          return;
+        }
+        const min = Number(guestSlider.min) || 0;
+        const max = Number(guestSlider.max) || 1;
+        const value = Number(guestSlider.value);
+        const percent = Math.max(0, Math.min(100, ((value - min) / (max - min || 1)) * 100));
+        const label = `${value.toLocaleString()} guest${value === 1 ? "" : "s"}`;
+
+        guestSlider.style.setProperty("--progress", `${percent}%`);
+        guestSlider.setAttribute("aria-valuemin", String(min));
+        guestSlider.setAttribute("aria-valuemax", String(max));
+        guestSlider.setAttribute("aria-valuenow", String(value));
+        guestSlider.setAttribute("aria-valuetext", label);
+        guestOutput.textContent = label;
+      };
+
+      guestSlider?.addEventListener("input", updateGuestSlider);
+      guestSlider?.addEventListener("change", updateGuestSlider);
+      updateGuestSlider();
+
+      document.querySelector(".contact-form")?.addEventListener("submit", (event) => {
         event.preventDefault();
         const form = event.target;
         const data = Object.fromEntries(new FormData(form));
-        const summary = `Hi Shelter Sky Events!%0A%0AMy name is ${data.name}.%0AEvent details: ${data.details}.%0AYou can reach me on ${
-          data.email || "email"
-        }${data.phone ? ` / ${data.phone}` : ""}.`;
-        window.location.href = `mailto:shelterskyevents@gmail.com?subject=Event%20planning%20request&body=${summary}`;
+
+        const formatEventDate = (value) => {
+          if (!value) {
+            return "";
+          }
+          const date = new Date(value);
+          if (Number.isNaN(date.getTime())) {
+            return value;
+          }
+          return date.toLocaleDateString(undefined, {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          });
+        };
+
+        const lines = [
+          "Hi Shelter Sky Events!",
+          "",
+          `My name is ${data.name}.`,
+          data.eventType ? `Event type: ${data.eventType}` : "",
+          data.eventDate ? `Preferred date: ${formatEventDate(data.eventDate)}` : "",
+          data.location ? `Location: ${data.location}` : "",
+          data.guestCount ? `Estimated guests: ${Number(data.guestCount).toLocaleString()}` : "",
+          data.details ? `Event details: ${data.details}` : "",
+          `You can reach me on ${data.email || "email"}${data.phone ? ` / ${data.phone}` : ""}.`,
+        ].filter(Boolean);
+
+        const summary = lines.map((line) => encodeURIComponent(line)).join("%0A");
+        const subject = encodeURIComponent("Event planning request");
+        window.location.href = `mailto:shelterskyevents@gmail.com?subject=${subject}&body=${summary}`;
       });
     </script>
   </body>
