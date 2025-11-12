@@ -378,9 +378,6 @@
         gap: clamp(24px, 5vw, 32px);
       }
 
-      .grid.columns-3 {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
 
       .grid.columns-2 {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -525,37 +522,28 @@
       }
 
       .chip {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         padding: 8px 14px;
         background: rgba(255, 255, 255, 0.08);
         border-radius: 999px;
         font-size: 0.85rem;
+        border: none;
+        color: inherit;
+        font: inherit;
+        cursor: pointer;
+        transition: background var(--transition), color var(--transition);
       }
 
-      .process {
-        counter-reset: step;
-        display: grid;
-        gap: 24px;
+      .chip:hover,
+      .chip:focus-visible {
+        background: rgba(255, 255, 255, 0.14);
       }
 
-      .process-step {
-        position: relative;
-        padding-left: 56px;
-      }
-
-      .process-step::before {
-        counter-increment: step;
-        content: counter(step, decimal-leading-zero);
-        position: absolute;
-        left: 0;
-        top: 6px;
-        width: 40px;
-        height: 40px;
-        border-radius: 14px;
-        background: linear-gradient(135deg, var(--brand), var(--brand-2));
-        display: grid;
-        place-items: center;
-        color: #04101c;
-        font-weight: 700;
+      .chip:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
       }
 
       blockquote {
@@ -586,40 +574,118 @@
         overflow: hidden;
       }
 
+      .gallery-controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: clamp(18px, 4vw, 28px);
+      }
+
+      .chip-filter {
+        border: 1px solid transparent;
+        background: rgba(255, 255, 255, 0.08);
+        color: inherit;
+        font: inherit;
+        cursor: pointer;
+        transition: background var(--transition), color var(--transition),
+          border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+      }
+
+      .chip-filter:hover {
+        background: rgba(255, 255, 255, 0.14);
+      }
+
+      .chip-filter:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
+      .chip-filter.active {
+        background: linear-gradient(135deg, var(--brand), var(--brand-2));
+        color: #041421;
+        border-color: rgba(255, 255, 255, 0.18);
+        box-shadow: 0 16px 34px rgba(26, 191, 154, 0.26);
+        transform: translateY(-2px);
+      }
+
       .gallery-track {
         display: grid;
-        grid-auto-flow: column;
-        gap: 18px;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        padding-bottom: 6px;
-      }
-
-      .gallery-track::-webkit-scrollbar {
-        height: 6px;
-      }
-
-      .gallery-track::-webkit-scrollbar-thumb {
-        background: var(--border);
-        border-radius: 999px;
+        gap: clamp(18px, 4vw, 28px);
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       }
 
       .gallery-card {
         position: relative;
-        width: clamp(240px, 50vw, 320px);
-        aspect-ratio: 4 / 5;
+        aspect-ratio: 4 / 3;
         border-radius: 22px;
         overflow: hidden;
         border: 1px solid var(--border);
-        scroll-snap-align: center;
         background: rgba(255, 255, 255, 0.06);
+        box-shadow: var(--shadow);
+        isolation: isolate;
+        transition: transform var(--transition), box-shadow var(--transition);
+      }
+
+      .gallery-card:hover,
+      .gallery-card:focus-within {
+        transform: translateY(-4px);
+        box-shadow: 0 28px 54px rgba(4, 10, 18, 0.4);
       }
 
       .gallery-card img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        object-position: center;
         display: block;
+        transform: scale(1.02);
+        transition: transform var(--transition);
+      }
+
+      .gallery-card:hover img,
+      .gallery-card:focus-within img {
+        transform: scale(1.08);
+      }
+
+      .gallery-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(4, 10, 18, 0) 0%, rgba(4, 10, 18, 0.78) 78%);
+        z-index: 1;
+      }
+
+      .gallery-card figcaption {
+        position: absolute;
+        inset: auto 0 0;
+        padding: clamp(18px, 4vw, 26px);
+        display: grid;
+        gap: 8px;
+        z-index: 2;
+      }
+
+      .gallery-tag {
+        justify-self: start;
+        font-size: 0.75rem;
+        font-weight: 600;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.18);
+        color: #f6f9ff;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .gallery-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin: 0;
+      }
+
+      .gallery-meta {
+        font-size: 0.85rem;
+        color: rgba(246, 249, 255, 0.78);
+        margin: 0;
       }
 
       .contact-card {
@@ -853,10 +919,6 @@
           font-size: 1.05rem;
         }
 
-        .grid.columns-3 {
-          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        }
-
         .floating-cta {
           position: sticky;
           bottom: 0;
@@ -905,8 +967,6 @@
           <button class="mobile-toggle" aria-expanded="false" aria-controls="primary-nav">Menu</button>
           <div class="nav-links" id="primary-nav" role="list">
             <a href="#services" role="listitem">Services</a>
-            <a href="#packages" role="listitem">Packages</a>
-            <a href="#process" role="listitem">How we work</a>
             <a href="#gallery" role="listitem">Gallery</a>
             <a href="#testimonials" role="listitem">Reviews</a>
             <a href="#contact" role="listitem">Contact</a>
@@ -940,10 +1000,9 @@
                 </p>
               </div>
               <div class="chip-row" aria-label="Quick services">
-                <span class="chip">Tents, Chair and Decor</span>
-                <span class="chip">Furniture &amp; lounge</span>
-                <span class="chip">Lighting &amp; audio</span>
-                <span class="chip">Florals &amp; styling</span>
+                <button type="button" class="chip">Tents</button>
+                <button type="button" class="chip">Chairs</button>
+                <button type="button" class="chip">Decor</button>
               </div>
             </aside>
           </div>
@@ -982,38 +1041,15 @@
           </div>
         </section>
 
-        <section id="packages" aria-labelledby="packages-title">
-          <div class="container">
-            <span class="pill">Curated packages</span>
-            <h2 class="section-title" id="packages-title">Popular setups you can book today</h2>
-            <p class="section-subtitle">
-              Transparent pricing guides you from estimate to confirmation. We happily customize layouts and décor details to match your guest
-              count, venue, and brand.
-            </p>
-            <div class="grid columns-3" id="packages-grid" aria-label="Package options"></div>
-          </div>
-        </section>
-
-        <section id="process" aria-labelledby="process-title">
-          <div class="container">
-            <span class="pill">How it works</span>
-            <h2 class="section-title" id="process-title">Our collaborative planning process</h2>
-            <p class="section-subtitle">
-              We design events in clear milestones so you always know what’s next and who is responsible. Expect timely updates, live dashboards,
-              and one dedicated point of contact.
-            </p>
-            <div class="process" id="process-steps" aria-label="Planning steps"></div>
-          </div>
-        </section>
-
         <section id="gallery" aria-labelledby="gallery-title">
           <div class="container gallery">
             <span class="pill">Recent work</span>
             <h2 class="section-title" id="gallery-title">Atmospheres we’ve created</h2>
             <p class="section-subtitle">
-              From contemporary chic to rustic romance, view a sample of our event styling. Ask about our full lookbooks during your consultation.
+              Browse by tents, chairs, or decor to see how we tailor each celebration. Ask about our full lookbooks during your consultation.
             </p>
-            <div class="gallery-track" id="gallery-track" aria-live="polite"></div>
+            <div class="gallery-controls" id="gallery-filters" role="toolbar" aria-label="Filter gallery"></div>
+            <div class="gallery-track" id="gallery-track" role="list" aria-live="polite"></div>
           </div>
         </section>
 
@@ -1096,7 +1132,6 @@
             <h3 style="margin-top: 0;">Quick links</h3>
             <div class="chip-row">
               <a class="chip" href="#services">Services</a>
-              <a class="chip" href="#packages">Packages</a>
               <a class="chip" href="#gallery">Gallery</a>
               <a class="chip" href="#contact">Contact</a>
             </div>
@@ -1122,28 +1157,6 @@
       <a href="#contact"><small>Need support?</small> Request a proposal</a>
     </div>
 
-    <template id="package-template">
-      <article class="card" tabindex="0">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px;">
-          <h3></h3>
-          <span class="pill"></span>
-        </div>
-        <p></p>
-        <div class="chip-row"></div>
-        <div style="margin-top: auto; display: grid; gap: 12px;">
-          <strong style="font-size: 1.4rem;"></strong>
-          <a class="btn btn-ghost" href="#contact">Book this setup</a>
-        </div>
-      </article>
-    </template>
-
-    <template id="process-template">
-      <div class="process-step card">
-        <h3></h3>
-        <p></p>
-      </div>
-    </template>
-
     <template id="testimonial-template">
       <article class="testimonial">
         <blockquote></blockquote>
@@ -1152,52 +1165,17 @@
     </template>
 
     <template id="gallery-template">
-      <figure class="gallery-card">
-        <img alt="Shelter Sky Events portfolio image" loading="lazy" />
+      <figure class="gallery-card" role="listitem">
+        <img alt="" loading="lazy" />
+        <figcaption>
+          <span class="gallery-tag"></span>
+          <p class="gallery-title"></p>
+          <p class="gallery-meta"></p>
+        </figcaption>
       </figure>
     </template>
 
     <script>
-      const packages = [
-        {
-          name: "Signature Wedding",
-          badge: "Most booked",
-          description:
-            "Romantic draping, dressed tent, full guest seating, aisle styling, reception lighting, and on-the-day coordination.",
-          inclusions: ["300-guest clear span tent", "Chiavari chairs & dressed tables", "Custom head table design", "Fairy light canopy"],
-          price: "From KES 165,000",
-        },
-        {
-          name: "Corporate Showcase",
-          badge: "New",
-          description: "Stage, projection, branded signage, and lounge pods for product launches, town halls, and award nights.",
-          inclusions: ["Stretch tent & stage backdrop", "LED screens & PA system", "Registration and green rooms", "Brand styling package"],
-          price: "From KES 210,000",
-        },
-        {
-          name: "Garden Soirée",
-          badge: "Intimate",
-          description: "Stylish cocktail party setup with lounge seating, bar service station, and ambient lighting for 80 guests.",
-          inclusions: ["Open-sided marquee", "Mix of lounge & café seating", "Statement floral installs", "Warm lighting & lanterns"],
-          price: "From KES 95,000",
-        },
-      ];
-
-      const steps = [
-        {
-          title: "Discovery & moodboard",
-          copy: "We unpack your goals, guest list, and inspiration to create an actionable concept deck within 3 business days.",
-        },
-        {
-          title: "Design & logistics",
-          copy: "Our planners confirm venue specs, coordinate vendors, and share transparent budgets and floor plans for approval.",
-        },
-        {
-          title: "Production & management",
-          copy: "We supervise setup, rehearse key moments, manage the event timeline, and handle teardown so you can celebrate.",
-        },
-      ];
-
       const testimonials = [
         {
           quote:
@@ -1219,41 +1197,78 @@
         },
       ];
 
-      const galleryImages = [
-        "/photos/p1.jpg",
-        "/photos/p2.jpg",
-        "/photos/p3.jpg",
-        "/photos/p4.jpg",
-        "/photos/p5.jpg",
-        "/photos/p6.jpg",
+      const galleryItems = [
+        {
+          src: "Assets/gallery/photos/event-01.png",
+          alt: "Twin-peak white marquee tent set on a manicured lawn with banquet tables underneath.",
+          title: "Twin-peak garden reception",
+          category: "Tents",
+          meta: "Karen Country Club · 300 guests",
+        },
+        {
+          src: "Assets/gallery/photos/event-02.png",
+          alt: "Aerial view of a double-peak marquee surrounded by lush trees and guest tables.",
+          title: "Estate marquee overview",
+          category: "Tents",
+          meta: "Limuru private estate",
+        },
+        {
+          src: "Assets/gallery/photos/event-03.png",
+          alt: "Side profile of a stretch tent with clear side walls showing set dinner tables.",
+          title: "Open lawn canopy",
+          category: "Tents",
+          meta: "Gigiri grounds",
+        },
+        {
+          src: "Assets/gallery/photos/event-04.png",
+          alt: "Round guest table styled with burgundy linens, white chairs, and fresh florals.",
+          title: "Bespoke table styling",
+          category: "Decor",
+          meta: "Luxury tablescape",
+        },
+        {
+          src: "Assets/gallery/photos/event-05.png",
+          alt: "Row of pagoda tents draped in purple and orange fabric overlooking reception seating.",
+          title: "Vibrant pagoda series",
+          category: "Tents",
+          meta: "Two Rivers grounds",
+        },
+        {
+          src: "Assets/gallery/photos/event-06.png",
+          alt: "Overhead photograph showcasing multiple pagoda tents aligned across a lawn.",
+          title: "Pagoda aerial layout",
+          category: "Tents",
+          meta: "Corporate fun day",
+        },
+        {
+          src: "Assets/gallery/photos/event-07.png",
+          alt: "Circular table with orange runner, floral centerpiece, and white chairs tied with purple sashes.",
+          title: "Colour-blocked seating",
+          category: "Chairs",
+          meta: "Custom linen + chair combo",
+        },
+        {
+          src: "Assets/gallery/photos/event-08.png",
+          alt: "Intimate red and white pagoda lounge with draped ceiling and round tables.",
+          title: "Intimate pagoda lounge",
+          category: "Tents",
+          meta: "Garden cocktail set",
+        },
+        {
+          src: "Assets/gallery/photos/event-09.png",
+          alt: "Bird’s-eye view of a pagoda tent with alternating red and white panels on a lawn.",
+          title: "Courtyard pagoda",
+          category: "Tents",
+          meta: "Villa Rosa grounds",
+        },
+        {
+          src: "Assets/gallery/photos/event-10.png",
+          alt: "Close-up of a decorated round table with folded napkins, glassware, and roses.",
+          title: "Romantic dinner setting",
+          category: "Decor",
+          meta: "Signature centrepiece",
+        },
       ];
-
-      const packageContainer = document.getElementById("packages-grid");
-      const packageTemplate = document.getElementById("package-template");
-      packages.forEach((pkg) => {
-        const node = packageTemplate.content.cloneNode(true);
-        node.querySelector("h3").textContent = pkg.name;
-        node.querySelector(".pill").textContent = pkg.badge;
-        node.querySelector("p").textContent = pkg.description;
-        node.querySelector("strong").textContent = pkg.price;
-        const chips = node.querySelector(".chip-row");
-        pkg.inclusions.forEach((item) => {
-          const span = document.createElement("span");
-          span.className = "chip";
-          span.textContent = item;
-          chips.appendChild(span);
-        });
-        packageContainer.appendChild(node);
-      });
-
-      const processContainer = document.getElementById("process-steps");
-      const processTemplate = document.getElementById("process-template");
-      steps.forEach((step) => {
-        const node = processTemplate.content.cloneNode(true);
-        node.querySelector("h3").textContent = step.title;
-        node.querySelector("p").textContent = step.copy;
-        processContainer.appendChild(node);
-      });
 
       const testimonialContainer = document.getElementById("testimonial-grid");
       const testimonialTemplate = document.getElementById("testimonial-template");
@@ -1265,12 +1280,64 @@
       });
 
       const galleryContainer = document.getElementById("gallery-track");
+      const galleryFilters = document.getElementById("gallery-filters");
       const galleryTemplate = document.getElementById("gallery-template");
-      galleryImages.forEach((src) => {
-        const node = galleryTemplate.content.cloneNode(true);
-        node.querySelector("img").src = src;
-        galleryContainer.appendChild(node);
+
+      const categoryOrder = ["Tents", "Chairs", "Decor"];
+      const categories = [
+        "All",
+        ...categoryOrder.filter((category) =>
+          galleryItems.some((item) => item.category === category)
+        ),
+      ];
+
+      let activeFilter = "All";
+
+      const renderGallery = () => {
+        galleryContainer.innerHTML = "";
+        const filtered = galleryItems.filter(
+          (item) => activeFilter === "All" || item.category === activeFilter
+        );
+
+        filtered.forEach((item) => {
+          const node = galleryTemplate.content.cloneNode(true);
+          const figure = node.querySelector(".gallery-card");
+          figure.dataset.category = item.category;
+          const image = node.querySelector("img");
+          image.src = item.src;
+          image.alt = item.alt;
+          node.querySelector(".gallery-tag").textContent = item.category;
+          node.querySelector(".gallery-title").textContent = item.title;
+          node.querySelector(".gallery-meta").textContent = item.meta;
+          galleryContainer.appendChild(node);
+        });
+      };
+
+      categories.forEach((category, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `chip chip-filter${index === 0 ? " active" : ""}`;
+        button.dataset.filter = category;
+        button.textContent = category;
+        button.setAttribute("aria-pressed", index === 0 ? "true" : "false");
+        button.addEventListener("click", () => {
+          if (activeFilter === category) {
+            return;
+          }
+          activeFilter = category;
+          galleryFilters
+            .querySelectorAll(".chip-filter")
+            .forEach((chip) => {
+              const isActive = chip.dataset.filter === activeFilter;
+              chip.classList.toggle("active", isActive);
+              chip.setAttribute("aria-pressed", String(isActive));
+            });
+          renderGallery();
+        });
+        galleryFilters.appendChild(button);
       });
+
+      renderGallery();
 
       document.getElementById("year").textContent = new Date().getFullYear();
 
