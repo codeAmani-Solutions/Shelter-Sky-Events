@@ -913,12 +913,23 @@
         height: 100%;
         object-fit: cover;
         display: block;
-        transition: transform 320ms ease;
+        transition: transform 360ms ease;
+        transform: scale(1);
+        transform-origin: center;
+        will-change: transform;
       }
 
+      .gallery-stage-media.is-zoomed img,
       .gallery-stage-media:hover img,
       .gallery-stage-media:focus-within img {
-        transform: scale(1.03);
+        transform: scale(1.08);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .gallery-stage-media,
+        .gallery-stage-media img {
+          transition: none;
+        }
       }
 
       .gallery-control {
@@ -2244,6 +2255,7 @@
       const eventTemplate = document.getElementById("gallery-event-template");
       const thumbsTemplate = document.getElementById("gallery-thumb-template");
       const stage = document.getElementById("gallery-stage");
+      const stageMedia = stage?.querySelector(".gallery-stage-media");
       const stageImage = document.getElementById("gallery-stage-image");
       const stageTag = document.getElementById("gallery-stage-tag");
       const stageTitle = document.getElementById("gallery-stage-title");
@@ -2255,6 +2267,55 @@
 
       let activeEventIndex = 0;
       let activeImageIndex = 0;
+      const gallerySection = document.getElementById("gallery");
+      let galleryInView = false;
+      const AUTO_ROTATE_INTERVAL = 6000;
+      const AUTO_ROTATE_RESUME_DELAY = 9000;
+      let autoRotateInterval = null;
+      let autoRotateResumeTimeout = null;
+
+      const clearAutoRotateResume = () => {
+        if (autoRotateResumeTimeout) {
+          clearTimeout(autoRotateResumeTimeout);
+          autoRotateResumeTimeout = null;
+        }
+      };
+
+      const stopAutoRotate = () => {
+        if (autoRotateInterval) {
+          clearInterval(autoRotateInterval);
+          autoRotateInterval = null;
+        }
+      };
+
+      const rotateToNextEvent = () => {
+        if (galleryEvents.length <= 1) return;
+        activeEventIndex = (activeEventIndex + 1) % galleryEvents.length;
+        activeImageIndex = 0;
+        updateEventButtons();
+        updateStage(true);
+      };
+
+      const scheduleAutoRotate = (delay = AUTO_ROTATE_INTERVAL) => {
+        stopAutoRotate();
+        clearAutoRotateResume();
+        if (!galleryInView || document.hidden || galleryEvents.length <= 1) {
+          return;
+        }
+        autoRotateResumeTimeout = window.setTimeout(() => {
+          autoRotateResumeTimeout = null;
+          if (!galleryInView || document.hidden) {
+            return;
+          }
+          rotateToNextEvent();
+          autoRotateInterval = window.setInterval(rotateToNextEvent, AUTO_ROTATE_INTERVAL);
+        }, delay);
+      };
+
+      const cancelAutoRotate = () => {
+        stopAutoRotate();
+        clearAutoRotateResume();
+      };
 
       const updateEventButtons = () => {
         const buttons = eventsContainer.querySelectorAll(".gallery-event-button");
@@ -2290,6 +2351,7 @@
             if (activeImageIndex === index) return;
             activeImageIndex = index;
             updateStage(false);
+            scheduleAutoRotate(AUTO_ROTATE_RESUME_DELAY);
           });
           thumbsContainer.appendChild(node);
         });
@@ -2347,6 +2409,7 @@
             updateEventButtons();
             updateStage(true);
             button.focus();
+            scheduleAutoRotate(AUTO_ROTATE_RESUME_DELAY);
           });
           eventsContainer.appendChild(node);
         });
@@ -2361,6 +2424,91 @@
         eventsContainer.innerHTML = "<p>No gallery events available.</p>";
       }
 
+      const interactiveGalleryElements = [eventsContainer, stage];
+
+      interactiveGalleryElements.forEach((element) => {
+        element?.addEventListener("pointerenter", () => {
+          galleryInView = true;
+          scheduleAutoRotate(1200);
+        });
+        element?.addEventListener("pointerdown", () => {
+          cancelAutoRotate();
+        });
+        element?.addEventListener("pointerleave", () => {
+          if (galleryInView) {
+            scheduleAutoRotate(AUTO_ROTATE_INTERVAL);
+          }
+        });
+        element?.addEventListener("focusin", () => {
+          galleryInView = true;
+          cancelAutoRotate();
+        });
+        element?.addEventListener("focusout", () => {
+          if (galleryInView) {
+            scheduleAutoRotate(AUTO_ROTATE_RESUME_DELAY);
+          }
+        });
+      });
+
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+          cancelAutoRotate();
+        } else if (galleryInView) {
+          scheduleAutoRotate(1200);
+        }
+      });
+
+      if (gallerySection) {
+        const galleryObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.target !== gallerySection) return;
+              if (entry.isIntersecting && entry.intersectionRatio > 0.35) {
+                galleryInView = true;
+                scheduleAutoRotate(1200);
+              } else {
+                galleryInView = false;
+                cancelAutoRotate();
+              }
+            });
+          },
+          { threshold: [0.2, 0.35, 0.6] }
+        );
+        galleryObserver.observe(gallerySection);
+      }
+
+      const resetStageZoom = () => {
+        stageMedia?.classList.remove("is-zoomed");
+      };
+
+      const activateStageZoom = () => {
+        stageMedia?.classList.add("is-zoomed");
+      };
+
+      stageMedia?.addEventListener("pointerenter", activateStageZoom);
+      stageMedia?.addEventListener("pointerleave", resetStageZoom);
+      stageMedia?.addEventListener("focusin", activateStageZoom);
+      stageMedia?.addEventListener("focusout", resetStageZoom);
+      stageMedia?.addEventListener("touchstart", activateStageZoom, {
+        passive: true,
+      });
+      stageMedia?.addEventListener("touchend", resetStageZoom);
+      stageMedia?.addEventListener("touchcancel", resetStageZoom);
+
+      if (stageMedia) {
+        const stageZoomObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) {
+                resetStageZoom();
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+        stageZoomObserver.observe(stageMedia);
+      }
+
       const stepImage = (direction) => {
         const currentEvent = galleryEvents[activeEventIndex];
         if (!currentEvent) return;
@@ -2369,16 +2517,24 @@
         updateStage(false);
       };
 
-      prevButton.addEventListener("click", () => stepImage(-1));
-      nextButton.addEventListener("click", () => stepImage(1));
+      prevButton.addEventListener("click", () => {
+        stepImage(-1);
+        scheduleAutoRotate(AUTO_ROTATE_RESUME_DELAY);
+      });
+      nextButton.addEventListener("click", () => {
+        stepImage(1);
+        scheduleAutoRotate(AUTO_ROTATE_RESUME_DELAY);
+      });
 
       stage.addEventListener("keydown", (event) => {
         if (event.key === "ArrowLeft") {
           event.preventDefault();
           stepImage(-1);
+          scheduleAutoRotate(AUTO_ROTATE_RESUME_DELAY);
         } else if (event.key === "ArrowRight") {
           event.preventDefault();
           stepImage(1);
+          scheduleAutoRotate(AUTO_ROTATE_RESUME_DELAY);
         }
       });
 
@@ -2398,6 +2554,7 @@
             updateEventButtons();
             updateStage(true);
             buttons[activeEventIndex].focus();
+            scheduleAutoRotate(AUTO_ROTATE_RESUME_DELAY);
             break;
           case "ArrowLeft":
           case "ArrowUp":
@@ -2408,6 +2565,7 @@
             updateEventButtons();
             updateStage(true);
             buttons[activeEventIndex].focus();
+            scheduleAutoRotate(AUTO_ROTATE_RESUME_DELAY);
             break;
           case "Home":
             event.preventDefault();
@@ -2416,6 +2574,7 @@
             updateEventButtons();
             updateStage(true);
             buttons[activeEventIndex].focus();
+            scheduleAutoRotate(AUTO_ROTATE_RESUME_DELAY);
             break;
           case "End":
             event.preventDefault();
@@ -2424,6 +2583,7 @@
             updateEventButtons();
             updateStage(true);
             buttons[activeEventIndex].focus();
+            scheduleAutoRotate(AUTO_ROTATE_RESUME_DELAY);
             break;
           default:
         }
