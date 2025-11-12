@@ -346,27 +346,6 @@
         font-weight: 600;
       }
 
-      .hero-stats {
-        display: grid;
-        gap: 18px;
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-        margin-top: 28px;
-      }
-
-      .stat {
-        background: rgba(3, 7, 12, 0.45);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 18px;
-        padding: 18px;
-        text-align: left;
-      }
-
-      .stat strong {
-        display: block;
-        font-size: 2rem;
-        font-weight: 700;
-      }
-
       h2.section-title {
         margin: 0 0 12px;
         font-family: "Playfair Display", serif;
@@ -441,6 +420,65 @@
       .card:hover::before,
       .card:focus-within::before {
         opacity: 1;
+      }
+
+      .service-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: clamp(24px, 5vw, 36px);
+      }
+
+      .service-card {
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: linear-gradient(160deg, rgba(76, 47, 193, 0.96), rgba(134, 69, 240, 0.9) 55%, rgba(182, 113, 255, 0.82));
+        color: #ffffff;
+        box-shadow: 0 30px 50px rgba(26, 36, 54, 0.45);
+        padding: clamp(32px, 5vw, 40px);
+        position: relative;
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      :root[data-theme="light"] .service-card,
+      :root:not([data-theme]) .service-card {
+        color: #ffffff;
+      }
+
+      .service-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(140deg, rgba(255, 255, 255, 0.18), transparent 65%);
+        opacity: 1;
+        z-index: -1;
+      }
+
+      .service-card:hover,
+      .service-card:focus-within {
+        border-color: rgba(255, 255, 255, 0.36);
+        box-shadow: 0 36px 62px rgba(16, 25, 45, 0.55);
+      }
+
+      .service-icon {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0));
+        border: 1px solid rgba(255, 255, 255, 0.24);
+        display: grid;
+        place-items: center;
+        margin-bottom: 18px;
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+      }
+
+      .service-card h3 {
+        margin: 0;
+        font-size: clamp(1.3rem, 2.2vw, 1.6rem);
+      }
+
+      .service-card p {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.82);
       }
 
       .card h3 {
@@ -780,6 +818,10 @@
           grid-template-columns: minmax(0, 1fr);
         }
 
+        .service-grid {
+          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        }
+
         .nav-links {
           position: fixed;
           inset: 74px 18px auto;
@@ -826,6 +868,10 @@
       }
 
       @media (max-width: 640px) {
+        .service-grid {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
         .card,
         .hero-copy,
         .hero-panel,
@@ -858,7 +904,6 @@
           </a>
           <button class="mobile-toggle" aria-expanded="false" aria-controls="primary-nav">Menu</button>
           <div class="nav-links" id="primary-nav" role="list">
-            <a href="#about" role="listitem">About</a>
             <a href="#services" role="listitem">Services</a>
             <a href="#packages" role="listitem">Packages</a>
             <a href="#process" role="listitem">How we work</a>
@@ -884,20 +929,6 @@
                 <a class="btn btn-primary" href="#contact">Plan your event</a>
                 <a class="btn btn-ghost" href="https://wa.me/254724016269" target="_blank" rel="noopener">Chat on WhatsApp</a>
               </div>
-              <div class="hero-stats" aria-label="Highlights">
-                <div class="stat">
-                  <strong id="stat-events">0</strong>
-                  Events delivered
-                </div>
-                <div class="stat">
-                  <strong id="stat-years">0</strong>
-                  Years coordinating
-                </div>
-                <div class="stat">
-                  <strong id="stat-rating">0.0</strong>
-                  Client satisfaction
-                </div>
-              </div>
             </div>
             <aside class="hero-panel">
               <div>
@@ -909,7 +940,7 @@
                 </p>
               </div>
               <div class="chip-row" aria-label="Quick services">
-                <span class="chip">Tents &amp; draping</span>
+                <span class="chip">Tents, Chair and Decor</span>
                 <span class="chip">Furniture &amp; lounge</span>
                 <span class="chip">Lighting &amp; audio</span>
                 <span class="chip">Florals &amp; styling</span>
@@ -918,27 +949,36 @@
           </div>
         </section>
 
-        <section id="about" aria-labelledby="about-title">
-          <div class="container">
-            <span class="pill">Our story</span>
-            <h2 class="section-title" id="about-title">People-first planning for unforgettable gatherings</h2>
-            <p class="section-subtitle">
-              Led by Director <strong>Ann Muriithi</strong>, Shelter Sky Events is a Nairobi-based team of planners, stylists, and logistical pros.
-              We listen, advise, and execute with precision so every host feels confident from first call to last guest departure.
-            </p>
-            <div class="grid columns-3" id="about-highlights" aria-label="Company highlights"></div>
-          </div>
-        </section>
-
         <section id="services" aria-labelledby="services-title">
           <div class="container">
-            <span class="pill">What we deliver</span>
-            <h2 class="section-title" id="services-title">Services tailored to your celebration</h2>
+            <span class="pill">Rentals &amp; styling</span>
+            <h2 class="section-title" id="services-title">What we offer</h2>
             <p class="section-subtitle">
-              Mix-and-match rentals and planning support, or hand over your entire event to our production team. Every package includes site
-              visits, mood boards, and on-site supervision on the day of your event.
+              Mix and match our core rental collections to create a cohesive look for weddings, corporate functions, and private celebrations.
             </p>
-            <div class="grid columns-3" id="services-grid" aria-label="Services list"></div>
+            <div class="service-grid" role="list">
+              <article class="card service-card" role="listitem">
+                <div class="service-icon" aria-hidden="true"></div>
+                <h3>Custom Tent Solutions</h3>
+                <p>
+                  From intimate gatherings to large-scale corporate functions, we provide a wide range of high-quality tents to create the perfect shelter.
+                </p>
+              </article>
+              <article class="card service-card" role="listitem">
+                <div class="service-icon" aria-hidden="true"></div>
+                <h3>Elegant Seating</h3>
+                <p>
+                  Comfort meets style with our diverse collection of chairs, from classic Chiavaris to modern lounge seating, matching any event theme.
+                </p>
+              </article>
+              <article class="card service-card" role="listitem">
+                <div class="service-icon" aria-hidden="true"></div>
+                <h3>Bespoke Decor</h3>
+                <p>
+                  It’s all in the details. We provide stunning decor, including lighting, drapery, and centerpieces, to transform your space.
+                </p>
+              </article>
+            </div>
           </div>
         </section>
 
@@ -1082,22 +1122,6 @@
       <a href="#contact"><small>Need support?</small> Request a proposal</a>
     </div>
 
-    <template id="highlight-template">
-      <article class="card">
-        <h3></h3>
-        <p></p>
-      </article>
-    </template>
-
-    <template id="service-template">
-      <article class="card">
-        <span class="pill"></span>
-        <h3></h3>
-        <p></p>
-        <ul></ul>
-      </article>
-    </template>
-
     <template id="package-template">
       <article class="card" tabindex="0">
         <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px;">
@@ -1134,43 +1158,6 @@
     </template>
 
     <script>
-      const highlights = [
-        {
-          title: "Experienced producers",
-          copy:
-            "Over a decade orchestrating weddings, corporate launches, galas, and private celebrations with 50–1000 guests.",
-        },
-        {
-          title: "Flexible rentals",
-          copy: "Pick and mix tents, chairs, lounge furniture, bars, lighting, and décor items sourced from trusted partners.",
-        },
-        {
-          title: "Detail-obsessed team",
-          copy: "We collaborate with caterers, photographers, entertainers, and venue managers to align the full guest journey.",
-        },
-      ];
-
-      const services = [
-        {
-          label: "Plan",
-          title: "Planning & Coordination",
-          copy: "Timeline creation, vendor management, and rehearsal-to-breakdown oversight led by a senior planner.",
-          bullets: ["Budget tracking dashboard", "Vendor sourcing and contracting", "Run-of-show creation"],
-        },
-        {
-          label: "Style",
-          title: "Design & Styling",
-          copy: "Concept development, décor mood boards, and curated installations that reflect your vision and story.",
-          bullets: ["Custom stage & focal points", "Florals and tablescapes", "Ambient lighting design"],
-        },
-        {
-          label: "Equip",
-          title: "Tents & Rentals",
-          copy: "Clear span, high-peak, and stretch tent options with matching seating, lounge sets, flooring, and climate control.",
-          bullets: ["Site inspection & measurements", "Power and safety planning", "On-site setup & strike"],
-        },
-      ];
-
       const packages = [
         {
           name: "Signature Wedding",
@@ -1240,31 +1227,6 @@
         "/photos/p5.jpg",
         "/photos/p6.jpg",
       ];
-
-      const highlightContainer = document.getElementById("about-highlights");
-      const highlightTemplate = document.getElementById("highlight-template");
-      highlights.forEach((item) => {
-        const node = highlightTemplate.content.cloneNode(true);
-        node.querySelector("h3").textContent = item.title;
-        node.querySelector("p").textContent = item.copy;
-        highlightContainer.appendChild(node);
-      });
-
-      const serviceContainer = document.getElementById("services-grid");
-      const serviceTemplate = document.getElementById("service-template");
-      services.forEach((service) => {
-        const node = serviceTemplate.content.cloneNode(true);
-        node.querySelector(".pill").textContent = service.label;
-        node.querySelector("h3").textContent = service.title;
-        node.querySelector("p").textContent = service.copy;
-        const list = node.querySelector("ul");
-        service.bullets.forEach((bullet) => {
-          const li = document.createElement("li");
-          li.textContent = bullet;
-          list.appendChild(li);
-        });
-        serviceContainer.appendChild(node);
-      });
 
       const packageContainer = document.getElementById("packages-grid");
       const packageTemplate = document.getElementById("package-template");
@@ -1341,41 +1303,6 @@
       document
         .querySelectorAll("section[id]")
         .forEach((section) => navObserver.observe(section));
-
-      const statTargets = {
-        "stat-events": 480,
-        "stat-years": 12,
-        "stat-rating": 4.9,
-      };
-
-      const animateStat = (element, target) => {
-        const duration = 1600;
-        const start = performance.now();
-
-        const update = (time) => {
-          const progress = Math.min((time - start) / duration, 1);
-          const value = target % 1 !== 0 ? (target * progress).toFixed(1) : Math.floor(target * progress);
-          element.textContent = progress === 1 ? target.toString() : value;
-          if (progress < 1) requestAnimationFrame(update);
-        };
-
-        requestAnimationFrame(update);
-      };
-
-      const statObserver = new IntersectionObserver(
-        (entries, observer) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              const id = entry.target.id;
-              animateStat(entry.target, statTargets[id]);
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.6 }
-      );
-
-      Object.keys(statTargets).forEach((id) => statObserver.observe(document.getElementById(id)));
 
       const revealObserver = new IntersectionObserver(
         (entries, observer) => {
