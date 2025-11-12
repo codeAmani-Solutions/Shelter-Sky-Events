@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1066">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1b1537" />
+      <stop offset="50%" stop-color="#432b7a" />
+      <stop offset="100%" stop-color="#f6a1c2" />
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1066" fill="url(#grad)" />
+  <g opacity="0.3" fill="#fff">
+    <circle cx="420" cy="260" r="220" />
+    <circle cx="1180" cy="620" r="260" />
+    <circle cx="900" cy="300" r="180" />
+  </g>
+  <g fill="#fff" opacity="0.75">
+    <path d="M300 780c120-160 300-240 600-160s420-40 520-160v400H300z" />
+    <rect x="360" y="560" width="160" height="220" rx="28" />
+    <rect x="540" y="500" width="180" height="280" rx="30" />
+    <rect x="760" y="540" width="200" height="240" rx="36" />
+  </g>
+  <text x="130" y="160" font-family="'Playfair Display', serif" font-size="120" fill="#fdf7ff" opacity="0.85">
+    Sunset vows
+  </text>
+  <text x="130" y="260" font-family="'DM Sans', sans-serif" font-size="60" fill="#fdf7ff" opacity="0.7">
+    Karen Gardens, Nairobi
+  </text>
+</svg>
