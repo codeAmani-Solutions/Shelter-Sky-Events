@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Shelter Sky Events Blog | Nairobi Event Inspiration</title>
+    <meta
+      name="description"
+      content="Explore Shelter Sky Events blog stories for Nairobi weddings, corporate functions, and private celebrations covering tents, chairs, and décor."
+    />
+    <link rel="icon" type="image/png" sizes="32x32" href="../Assets/gallery/shelterskyevents_icon.jpg" />
+    <link rel="apple-touch-icon" href="../Assets/gallery/shelterskyevents_icon.jpg" />
+    <link rel="shortcut icon" href="../Assets/gallery/shelterskyevents_icon.jpg" />
+    <link rel="canonical" href="https://shelterskyevents.com/Blog/index.html" />
+    <link rel="stylesheet" href="blog-home.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="page-header">
+        <div class="wrap">
+          <a class="home-link" href="../index.html">← Back to Shelter Sky Events</a>
+          <p class="eyebrow">Shelter Sky journal</p>
+          <h1>Event planning stories powered by tents, chairs, and décor</h1>
+          <p>
+            Every article is written from Nairobi County, highlighting how we outfit celebrations across Nairobi, Kiambu, Machakos,
+            and Kajiado with premium rentals and thoughtful planning.
+          </p>
+          <div class="header-meta">
+            <span>Publishing window: Tuesday &amp; Friday · 9:00am – 11:30am EAT</span>
+            <span>Service focus: Tents · Chairs · Decor</span>
+          </div>
+          <a class="cta" id="latest-link" href="blog-event-rentals-nairobi.html" target="_blank" rel="noopener">
+            Read the latest post
+          </a>
+        </div>
+      </header>
+      <main class="page-main">
+        <div class="wrap" id="blog-app">
+          <section aria-live="polite" id="feature-section">
+            <article class="feature-card" id="feature-card" hidden>
+              <div class="feature-media">
+                <img id="feature-image" src="" alt="" loading="lazy" />
+              </div>
+              <div class="feature-body">
+                <span class="status-pill" id="feature-status">Now live</span>
+                <p class="post-meta" id="feature-meta"></p>
+                <h2 id="feature-title"></h2>
+                <p id="feature-excerpt"></p>
+                <div class="feature-actions">
+                  <a class="btn btn-primary" id="feature-read" href="#" target="_blank" rel="noopener">Read story</a>
+                  <span class="btn btn-ghost feature-date" id="feature-date"></span>
+                </div>
+              </div>
+            </article>
+          </section>
+          <section class="grid-section" aria-label="Published blog posts">
+            <div class="grid-list" id="blog-grid" role="list"></div>
+            <p class="empty-state" id="blog-empty" hidden>More Nairobi insights are on the way — please check back soon.</p>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <template id="blog-card-template">
+      <article class="post-card" role="listitem">
+        <figure>
+          <img src="" alt="" loading="lazy" />
+        </figure>
+        <div class="post-meta"></div>
+        <h4></h4>
+        <p></p>
+        <a class="btn btn-ghost" target="_blank" rel="noopener">Read post</a>
+      </article>
+    </template>
+
+    <script>
+      const BLOG_DATA_URL = "posts.json";
+      const featureCard = document.getElementById("feature-card");
+      const featureImage = document.getElementById("feature-image");
+      const featureTitle = document.getElementById("feature-title");
+      const featureExcerpt = document.getElementById("feature-excerpt");
+      const featureMeta = document.getElementById("feature-meta");
+      const featureRead = document.getElementById("feature-read");
+      const featureDate = document.getElementById("feature-date");
+      const featureStatus = document.getElementById("feature-status");
+      const latestLink = document.getElementById("latest-link");
+      const blogGrid = document.getElementById("blog-grid");
+      const blogEmpty = document.getElementById("blog-empty");
+      const blogCardTemplate = document.getElementById("blog-card-template");
+
+      const formatDate = (value) => {
+        try {
+          return new Intl.DateTimeFormat("en-GB", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+            timeZone: "Africa/Nairobi",
+          }).format(new Date(value));
+        } catch (error) {
+          return value;
+        }
+      };
+
+      const resolveUrl = (path) => new URL(path, window.location.href).toString();
+
+      const renderCards = (posts) => {
+        blogGrid.innerHTML = "";
+        posts.forEach((post) => {
+          const node = blogCardTemplate.content.cloneNode(true);
+          const article = node.querySelector(".post-card");
+          const figureImg = node.querySelector("img");
+          const meta = node.querySelector(".post-meta");
+          const title = node.querySelector("h4");
+          const excerpt = node.querySelector("p");
+          const cta = node.querySelector("a");
+
+          figureImg.src = post.image;
+          figureImg.alt = post.alt || post.title;
+          meta.textContent = `${post.category} · ${post.readTime}`;
+          title.textContent = post.title;
+          excerpt.textContent = post.excerpt;
+          cta.href = post.url;
+          cta.setAttribute("aria-label", `Read ${post.title}`);
+
+          blogGrid.appendChild(node);
+        });
+      };
+
+      const renderFeature = (post) => {
+        if (!post) {
+          featureCard.hidden = true;
+          return;
+        }
+        featureCard.hidden = false;
+        featureImage.src = post.image;
+        featureImage.alt = post.alt || post.title;
+        featureTitle.textContent = post.title;
+        featureExcerpt.textContent = post.excerpt;
+        featureMeta.textContent = `${post.category} · ${post.readTime}`;
+        featureRead.href = post.url;
+        featureDate.textContent = `Published ${formatDate(post.publishDate)}`;
+        featureStatus.textContent = post.published ? "Now live" : "Scheduled";
+        if (latestLink) {
+          latestLink.href = post.url;
+        }
+      };
+
+      const init = async () => {
+        try {
+          const response = await fetch(BLOG_DATA_URL, { cache: "no-store" });
+          if (!response.ok) {
+            throw new Error(`Blog response ${response.status}`);
+          }
+          const posts = await response.json();
+          const validPosts = Array.isArray(posts)
+            ? posts
+                .filter((post) => Boolean(post && post.title && post.url))
+                .map((post) => ({
+                  ...post,
+                  publishDate: post.publishDate ?? new Date().toISOString(),
+                  url: resolveUrl(post.url),
+                }))
+            : [];
+          const publishedPosts = validPosts
+            .filter((post) => post.published)
+            .sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate));
+
+          if (!publishedPosts.length) {
+            blogEmpty.hidden = false;
+            featureCard.hidden = true;
+            return;
+          }
+
+          const [latest, ...archived] = publishedPosts;
+          renderFeature(latest);
+          renderCards(archived);
+          blogEmpty.hidden = true;
+        } catch (error) {
+          console.error("Unable to load blog posts", error);
+          blogEmpty.hidden = false;
+          blogEmpty.textContent = "We could not load the blog feed. Please refresh and try again.";
+          featureCard.hidden = true;
+        }
+      };
+
+      init();
+    </script>
+  </body>
+</html>
