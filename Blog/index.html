@@ -41,7 +41,7 @@
             <span>Publishing window: Tuesday &amp; Friday · 9:00am – 11:30am EAT</span>
             <span>Service focus: Tents · Chairs · Decor</span>
           </div>
-          <a class="cta" id="latest-link" href="blog-event-rentals-nairobi.html" target="_blank" rel="noopener">
+          <a class="cta" id="latest-link" href="blog-event-rentals-nairobi.html">
             Read the latest post
           </a>
         </div>
@@ -57,9 +57,8 @@
                 <span class="status-pill" id="feature-status">Now live</span>
                 <p class="post-meta" id="feature-meta"></p>
                 <h2 id="feature-title"></h2>
-                <p id="feature-excerpt"></p>
                 <div class="feature-actions">
-                  <a class="btn btn-primary" id="feature-read" href="#" target="_blank" rel="noopener">Read story</a>
+                  <a class="btn btn-primary" id="feature-read" href="#">Read story</a>
                   <span class="btn btn-ghost feature-date" id="feature-date"></span>
                 </div>
               </div>
@@ -81,7 +80,7 @@
         <div class="post-meta"></div>
         <h4></h4>
         <p></p>
-        <a class="btn btn-ghost" target="_blank" rel="noopener">Read post</a>
+        <a class="btn btn-ghost">Read post</a>
       </article>
     </template>
 
@@ -90,7 +89,6 @@
       const featureCard = document.getElementById("feature-card");
       const featureImage = document.getElementById("feature-image");
       const featureTitle = document.getElementById("feature-title");
-      const featureExcerpt = document.getElementById("feature-excerpt");
       const featureMeta = document.getElementById("feature-meta");
       const featureRead = document.getElementById("feature-read");
       const featureDate = document.getElementById("feature-date");
@@ -154,7 +152,6 @@
         featureImage.src = resolveUrl(post.image);
         featureImage.alt = post.alt || post.title;
         featureTitle.textContent = post.title;
-        featureExcerpt.textContent = post.excerpt;
         featureMeta.textContent = `${post.category} · ${post.readTime}`;
         featureRead.href = resolveUrl(post.url);
         featureDate.textContent = `Published ${formatDate(post.publishDate)}`;
