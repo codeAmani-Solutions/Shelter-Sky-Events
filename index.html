@@ -566,15 +566,79 @@
       }
 
       .service-icon {
-        width: 64px;
-        height: 64px;
+        position: relative;
+        width: clamp(84px, 9vw, 96px);
+        height: clamp(84px, 9vw, 96px);
         border-radius: 50%;
-        background: radial-gradient(circle at 35% 35%, color-mix(in srgb, var(--brand) 45%, transparent), transparent 70%);
-        border: 1px solid color-mix(in srgb, var(--brand) 55%, transparent 45%);
+        background: radial-gradient(circle at 28% 28%, color-mix(in srgb, var(--brand) 70%, transparent 30%), transparent 75%),
+          radial-gradient(circle at 70% 70%, color-mix(in srgb, var(--brand-2) 45%, transparent 55%), transparent 80%),
+          color-mix(in srgb, var(--surface-strong) 65%, var(--brand) 35%);
+        border: 1px solid color-mix(in srgb, var(--brand) 60%, transparent 40%);
         display: grid;
         place-items: center;
-        margin-bottom: 18px;
-        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+        margin: 0 auto 24px;
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1), 0 0 18px rgba(93, 242, 214, 0.18);
+        overflow: visible;
+        isolation: isolate;
+        animation: orb-spin 14s linear infinite;
+      }
+
+      .service-icon::before,
+      .service-icon::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        pointer-events: none;
+      }
+
+      .service-icon::before {
+        inset: -18%;
+        background: conic-gradient(
+          from 0deg,
+          color-mix(in srgb, var(--brand) 70%, transparent 30%) 0deg 120deg,
+          color-mix(in srgb, var(--brand-2) 68%, transparent 32%) 120deg 240deg,
+          color-mix(in srgb, var(--accent) 55%, transparent 45%) 240deg 360deg
+        );
+        mix-blend-mode: screen;
+        opacity: 0.65;
+        animation: orb-spin 10s linear infinite;
+      }
+
+      .service-icon::after {
+        inset: 18%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0));
+        box-shadow: 0 0 22px rgba(93, 242, 214, 0.4);
+        animation: orb-pulse 3.2s ease-in-out infinite;
+      }
+
+      @keyframes orb-spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes orb-pulse {
+        0%,
+        100% {
+          transform: scale(0.92);
+          opacity: 0.85;
+        }
+        50% {
+          transform: scale(1.05);
+          opacity: 1;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .service-icon,
+        .service-icon::before,
+        .service-icon::after {
+          animation: none;
+        }
       }
 
       .service-card h3 {
@@ -841,20 +905,10 @@
           background var(--transition), box-shadow var(--transition);
       }
 
-      .gallery-event-button .label {
-        display: grid;
-        gap: 4px;
-        text-align: left;
-      }
-
-      .gallery-event-button .label strong {
+      .gallery-event-button strong {
         font-weight: 600;
         font-size: 1.05rem;
-      }
-
-      .gallery-event-button .label span {
-        color: var(--muted);
-        font-size: 0.85rem;
+        text-align: left;
       }
 
       .gallery-event-button .chevron {
@@ -967,39 +1021,6 @@
         right: 16px;
       }
 
-      .gallery-stage-info {
-        display: grid;
-        gap: 12px;
-      }
-
-      .gallery-stage-tag {
-        justify-self: start;
-        padding: 6px 16px;
-        border-radius: 999px;
-        background: color-mix(in srgb, var(--gallery-accent) 24%, transparent 76%);
-        color: inherit;
-        font-size: 0.78rem;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        font-weight: 700;
-      }
-
-      .gallery-stage-title {
-        margin: 0;
-        font-size: clamp(1.35rem, 2.6vw, 1.9rem);
-        font-weight: 600;
-      }
-
-      .gallery-stage-meta {
-        margin: 0;
-        color: var(--muted);
-        font-size: 0.95rem;
-      }
-
-      .gallery-stage-description {
-        margin: 0;
-        max-width: 60ch;
-      }
 
       .gallery-thumbs {
         display: flex;
@@ -1861,21 +1882,19 @@
         <section id="gallery" aria-labelledby="gallery-title">
           <div class="container gallery">
             <div class="gallery-header">
-              <span class="pill">Recent work</span>
-              <h2 class="section-title" id="gallery-title">Atmospheres we’ve created</h2>
+              <span class="pill">Past events</span>
+              <h2 class="section-title" id="gallery-title">Past events &amp; inspiration</h2>
               <p class="section-subtitle">
-                Explore three signature installations and cycle through the full photo sets to see how our tents, chairs, and décor
-                transform Nairobi venues.
+                Step through every Shelter Sky past event photo in order or flip to the inspiration rail for curated décor ideas.
               </p>
             </div>
             <div class="gallery-layout">
-              <div class="gallery-events" id="gallery-events" role="tablist" aria-label="Past event showcases"></div>
+              <div class="gallery-events" id="gallery-events" role="tablist" aria-label="Gallery collections"></div>
               <div
                 class="gallery-stage"
                 id="gallery-stage"
                 role="tabpanel"
                 aria-live="polite"
-                aria-labelledby="gallery-stage-title"
                 tabindex="0"
               >
                 <div class="gallery-stage-media">
@@ -1886,12 +1905,6 @@
                   <button class="gallery-control next" type="button" id="gallery-next" aria-label="Next photo">
                     <span aria-hidden="true">&#10095;</span>
                   </button>
-                </div>
-                <div class="gallery-stage-info">
-                  <span class="gallery-stage-tag" id="gallery-stage-tag"></span>
-                  <h3 class="gallery-stage-title" id="gallery-stage-title"></h3>
-                  <p class="gallery-stage-meta" id="gallery-stage-meta"></p>
-                  <p class="gallery-stage-description" id="gallery-stage-description"></p>
                 </div>
                 <div class="gallery-thumbs" id="gallery-thumbs" role="list"></div>
               </div>
@@ -2021,6 +2034,17 @@
                     Event date
                     <input id="eventDate" name="eventDate" type="date" lang="en-GB" placeholder="dd/mm/yyyy" />
                   </label>
+                  <label for="eventCounty">
+                    County
+                    <input
+                      id="eventCounty"
+                      name="county"
+                      type="text"
+                      list="kenyanCounties"
+                      placeholder="Select county"
+                      autocomplete="address-level1"
+                    />
+                  </label>
                   <label for="eventLocation">
                     Location
                     <input
@@ -2032,6 +2056,55 @@
                     />
                   </label>
                 </div>
+                <datalist id="kenyanCounties">
+                  <option value="Mombasa"></option>
+                  <option value="Kwale"></option>
+                  <option value="Kilifi"></option>
+                  <option value="Tana River"></option>
+                  <option value="Lamu"></option>
+                  <option value="Taita-Taveta"></option>
+                  <option value="Garissa"></option>
+                  <option value="Wajir"></option>
+                  <option value="Mandera"></option>
+                  <option value="Marsabit"></option>
+                  <option value="Isiolo"></option>
+                  <option value="Meru"></option>
+                  <option value="Tharaka-Nithi"></option>
+                  <option value="Embu"></option>
+                  <option value="Kitui"></option>
+                  <option value="Machakos"></option>
+                  <option value="Makueni"></option>
+                  <option value="Nyandarua"></option>
+                  <option value="Nyeri"></option>
+                  <option value="Kirinyaga"></option>
+                  <option value="Murang&#39;a"></option>
+                  <option value="Kiambu"></option>
+                  <option value="Turkana"></option>
+                  <option value="West Pokot"></option>
+                  <option value="Samburu"></option>
+                  <option value="Trans Nzoia"></option>
+                  <option value="Uasin Gishu"></option>
+                  <option value="Elgeyo-Marakwet"></option>
+                  <option value="Nandi"></option>
+                  <option value="Baringo"></option>
+                  <option value="Laikipia"></option>
+                  <option value="Nakuru"></option>
+                  <option value="Narok"></option>
+                  <option value="Kajiado"></option>
+                  <option value="Kericho"></option>
+                  <option value="Bomet"></option>
+                  <option value="Kakamega"></option>
+                  <option value="Vihiga"></option>
+                  <option value="Bungoma"></option>
+                  <option value="Busia"></option>
+                  <option value="Siaya"></option>
+                  <option value="Kisumu"></option>
+                  <option value="Homa Bay"></option>
+                  <option value="Migori"></option>
+                  <option value="Kisii"></option>
+                  <option value="Nyamira"></option>
+                  <option value="Nairobi"></option>
+                </datalist>
                 <div class="form-field">
                   <label for="guestCount">Estimated guest count</label>
                   <div class="slider-control">
@@ -2116,10 +2189,7 @@
 
     <template id="gallery-event-template">
       <button class="gallery-event-button" type="button" role="tab" aria-selected="false">
-        <div class="label">
-          <strong></strong>
-          <span></span>
-        </div>
+        <strong></strong>
         <span class="chevron" aria-hidden="true">&#8594;</span>
       </button>
     </template>
@@ -2156,7 +2226,7 @@
         testimonialContainer.appendChild(node);
       });
 
-      const galleryFiles = [
+      const galleryPhotoFiles = [
         "Event1_Image1.JPG",
         "Event1_Image2.JPG",
         "Event1_Image3.JPG",
@@ -2168,86 +2238,68 @@
         "Event3_Image3.JPG",
       ];
 
+      const inspirationFiles = [
+        "Inspiration_Image1.JPG",
+        "Inspiration_Image2.JPG",
+        "Inspiration_Image3.JPG",
+      ];
+
       const rootStyles = getComputedStyle(document.documentElement);
       const defaultAccent = rootStyles.getPropertyValue("--brand") || "#5df2d6";
 
-      const eventDescriptions = {
-        Event1: {
-          title: "Event 1",
-          tag: "Marquee tents & ambient lighting",
-          meta: "Twin-peak marquee · Chiavari seating · Bistro lighting",
-          description:
-            "Layered draping, chandeliers, and cozy lounge pods showcase how our marquee tents, seating, and lighting create an inviting reception setting.",
-          accent: "#8da6ff",
-          altText: [
-            "Golden-hour view of a twin-peak marquee tent on a manicured lawn with banquet tables set beneath.",
-            "Interior of the marquee with warm uplighting, round tables, and crystal chandeliers suspended above the dance floor.",
-            "Evening stretch tent with clear side walls revealing guests dining under twinkling bistro lights.",
-          ],
-        },
-        Event2: {
-          title: "Event 2",
-          tag: "Lounge pods & dining sets",
-          meta: "Pagoda tents · Lounge furniture · Dining layouts",
-          description:
-            "Modular seating clusters, shaded pagodas, and styled dining tables highlight the mix of tenting, lounge chairs, and décor we provide for corporate socials.",
-          accent: "#5df2d6",
-          altText: [
-            "Round guest table layered with burgundy linens, white chiavari chairs, and lush floral centerpieces.",
-            "Series of pagoda tents draped in Shelter Sky colours framing relaxed lounge seating and cocktail tables.",
-            "Overhead view of aligned pagoda tents and seating pods creating a mini event village on the lawn.",
-          ],
-        },
-        Event3: {
-          title: "Event 3",
-          tag: "Draped tents & colour accents",
-          meta: "Pagoda pavilion · Sashed chairs · Statement draping",
-          description:
-            "Patterned textiles, colour-blocked chair sashes, and layered draping demonstrate our décor styling and tent dressing capabilities.",
-          accent: "#ff9f47",
-          altText: [
-            "Circular reception table with orange runner, floral centerpiece, and white chairs tied with purple sashes.",
-            "Intimate red and white pagoda lounge dressed with ceiling draping, round tables, and ambient lighting.",
-            "Bird’s-eye view of a pagoda tent with alternating red and white panels anchoring the celebration lawn.",
-          ],
-        },
+      const eventAltText = {
+        "Event1_Image1.JPG": "Golden-hour view of a twin-peak marquee tent on a manicured lawn with banquet tables set beneath.",
+        "Event1_Image2.JPG": "Interior of the marquee with warm uplighting, round tables, and crystal chandeliers suspended above the dance floor.",
+        "Event1_Image3.JPG": "Evening stretch tent with clear side walls revealing guests dining under twinkling bistro lights.",
+        "Event2_Image1.JPG": "Round guest table layered with burgundy linens, white chiavari chairs, and lush floral centerpieces.",
+        "Event2_Image2.JPG": "Series of pagoda tents draped in Shelter Sky colours framing relaxed lounge seating and cocktail tables.",
+        "Event2_Image3.JPG": "Overhead view of aligned pagoda tents and seating pods creating a mini event village on the lawn.",
+        "Event3_Image1.JPG": "Circular reception table with orange runner, floral centerpiece, and white chairs tied with purple sashes.",
+        "Event3_Image2.JPG": "Intimate red and white pagoda lounge dressed with ceiling draping, round tables, and ambient lighting.",
+        "Event3_Image3.JPG": "Bird’s-eye view of a pagoda tent with alternating red and white panels anchoring the celebration lawn.",
       };
 
-      const buildGalleryEvents = () => {
-        const grouped = galleryFiles.reduce((acc, file) => {
-          const match = file.match(/(Event\d+)_Image(\d+)/i);
-          if (!match) {
-            return acc;
-          }
-          const [, eventId, position] = match;
-          acc[eventId] = acc[eventId] || [];
-          acc[eventId].push({ file, position: Number(position) });
-          return acc;
-        }, {});
+      const inspirationAltText = {
+        "Inspiration_Image1.JPG": "Inspiration board featuring a breezy marquee tent entrance with layered draping.",
+        "Inspiration_Image2.JPG": "Mood-board shot with white chiavari seating and teal linen styling.",
+        "Inspiration_Image3.JPG": "Decor vignette highlighting string lighting and ambient lounge décor.",
+      };
 
-        return Object.entries(grouped)
-          .map(([eventId, items]) => {
-            const { altText = [], accent, ...details } = eventDescriptions[eventId] ?? {};
-            items.sort((a, b) => a.position - b.position);
-            const images = items.map((item, index) => ({
-              src: `Assets/gallery/photos/${item.file}`,
-              alt:
-                altText[index] ?? `${details.title ?? eventId} highlight ${index + 1}`,
+      const galleryCollections = [
+        {
+          id: "events",
+          title: "Events",
+          accent: defaultAccent,
+          directory: "Assets/gallery/photos",
+          files: galleryPhotoFiles,
+          altTextMap: eventAltText,
+        },
+        {
+          id: "inspiration",
+          title: "Inspiration",
+          accent: "#8da6ff",
+          directory: "Assets/gallery/Inspiration",
+          files: inspirationFiles,
+          altTextMap: inspirationAltText,
+        },
+      ];
+
+      const buildGalleryEvents = () =>
+        galleryCollections
+          .map(({ files = [], directory, altTextMap = {}, ...collection }) => {
+            const orderedFiles = files
+              .slice()
+              .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" }));
+            const images = orderedFiles.map((file, index) => ({
+              src: `${directory}/${file}`,
+              alt: altTextMap[file] ?? `${collection.title} highlight ${index + 1}`,
             }));
             return {
-              id: eventId,
-              title: details.title ?? eventId,
-              tag: details.tag ?? "Event showcase",
-              meta:
-                details.meta ??
-                `${items.length} photo${items.length > 1 ? "s" : ""}`,
-              description: details.description ?? "",
-              accent: accent ?? defaultAccent,
+              ...collection,
               images,
             };
           })
-          .sort((a, b) => a.id.localeCompare(b.id));
-      };
+          .filter((collection) => collection.images.length);
 
       const galleryEvents = buildGalleryEvents();
 
@@ -2257,10 +2309,6 @@
       const stage = document.getElementById("gallery-stage");
       const stageMedia = stage?.querySelector(".gallery-stage-media");
       const stageImage = document.getElementById("gallery-stage-image");
-      const stageTag = document.getElementById("gallery-stage-tag");
-      const stageTitle = document.getElementById("gallery-stage-title");
-      const stageMeta = document.getElementById("gallery-stage-meta");
-      const stageDescription = document.getElementById("gallery-stage-description");
       const thumbsContainer = document.getElementById("gallery-thumbs");
       const prevButton = document.getElementById("gallery-prev");
       const nextButton = document.getElementById("gallery-next");
@@ -2368,13 +2416,6 @@
         stage.style.setProperty("--gallery-accent", currentEvent.accent);
         stageImage.src = image?.src ?? "";
         stageImage.alt = image?.alt ?? currentEvent.title;
-        stageTag.textContent = currentEvent.tag;
-        stageTag.hidden = !currentEvent.tag;
-        stageTitle.textContent = currentEvent.title;
-        stageMeta.textContent = currentEvent.meta;
-        stageMeta.hidden = !currentEvent.meta;
-        stageDescription.textContent = currentEvent.description;
-        stageDescription.hidden = !currentEvent.description;
         stage.setAttribute(
           "aria-label",
           `${currentEvent.title} photo ${activeImageIndex + 1} of ${currentEvent.images.length}`
@@ -2393,14 +2434,16 @@
           const node = eventTemplate.content.cloneNode(true);
           const button = node.querySelector(".gallery-event-button");
           button.dataset.index = String(index);
-          button.querySelector("strong").textContent = event.title;
-          const subtitleParts = [event.tag];
-          subtitleParts.push(
-            `${event.images.length} photo${event.images.length > 1 ? "s" : ""}`
+          const titleEl = button.querySelector("strong");
+          if (titleEl) {
+            titleEl.textContent = event.title;
+          }
+          button.setAttribute(
+            "aria-label",
+            `${event.title} gallery (${event.images.length} photo${
+              event.images.length > 1 ? "s" : ""
+            })`
           );
-          button.querySelector(".label span").textContent = subtitleParts
-            .filter(Boolean)
-            .join(" · ");
           button.setAttribute("aria-controls", "gallery-stage");
           button.addEventListener("click", () => {
             if (activeEventIndex === index) return;
@@ -2765,6 +2808,7 @@
           data.name ? `My name is ${data.name}.` : "",
           data.eventType ? `Event type: ${data.eventType}` : "",
           data.eventDate ? `Preferred date: ${formatEventDate(data.eventDate)}` : "",
+          data.county ? `County: ${data.county}` : "",
           data.location ? `Location: ${data.location}` : "",
           data.guestCount ? `Estimated guests: ${Number(data.guestCount).toLocaleString()}` : "",
           data.details ? `Event details: ${data.details}` : "",
