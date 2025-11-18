@@ -6,19 +6,31 @@
     <title>Shelter Sky Events Blog | Nairobi Event Inspiration</title>
     <meta
       name="description"
-      content="Explore Shelter Sky Events blog stories for Nairobi weddings, corporate functions, and private celebrations covering tents, chairs, and décor."
+      content="Explore Shelter Sky Events journal stories for Nairobi weddings, corporate functions, and private celebrations covering tents, chairs, and décor."
     />
     <link rel="icon" type="image/png" sizes="32x32" href="../Assets/gallery/shelterskyevents_icon.jpg" />
     <link rel="apple-touch-icon" href="../Assets/gallery/shelterskyevents_icon.jpg" />
     <link rel="shortcut icon" href="../Assets/gallery/shelterskyevents_icon.jpg" />
     <link rel="canonical" href="https://shelterskyevents.com/Blog/index.html" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="blog-home.css" />
   </head>
   <body>
     <div class="page">
       <header class="page-header">
         <div class="wrap">
-          <a class="home-link" href="../index.html">← Back to Shelter Sky Events</a>
+          <div class="nav-bar">
+            <a class="brand" href="../index.html">
+              <span>S</span>
+              Shelter Sky Events
+            </a>
+            <div class="nav-links">
+              <a href="../index.html#services">Services</a>
+              <a href="../index.html#contact">Contact</a>
+              <button class="theme-switch" id="themeSwitch" type="button">Light mode</button>
+            </div>
+          </div>
           <p class="eyebrow">Shelter Sky journal</p>
           <h1>Event planning stories powered by tents, chairs, and décor</h1>
           <p>
@@ -101,7 +113,14 @@
         }
       };
 
-      const resolveUrl = (path) => new URL(path, window.location.href).toString();
+      const resolveUrl = (path) => {
+        if (!path) return "";
+        if (/^https?:/i.test(path)) return path;
+        if (path.startsWith("/")) {
+          return `${window.location.origin ?? ""}${path}`;
+        }
+        return new URL(path, window.location.href).toString();
+      };
 
       const renderCards = (posts) => {
         blogGrid.innerHTML = "";
@@ -114,12 +133,12 @@
           const excerpt = node.querySelector("p");
           const cta = node.querySelector("a");
 
-          figureImg.src = post.image;
+          figureImg.src = resolveUrl(post.image);
           figureImg.alt = post.alt || post.title;
           meta.textContent = `${post.category} · ${post.readTime}`;
           title.textContent = post.title;
           excerpt.textContent = post.excerpt;
-          cta.href = post.url;
+          cta.href = resolveUrl(post.url);
           cta.setAttribute("aria-label", `Read ${post.title}`);
 
           blogGrid.appendChild(node);
@@ -132,16 +151,16 @@
           return;
         }
         featureCard.hidden = false;
-        featureImage.src = post.image;
+        featureImage.src = resolveUrl(post.image);
         featureImage.alt = post.alt || post.title;
         featureTitle.textContent = post.title;
         featureExcerpt.textContent = post.excerpt;
         featureMeta.textContent = `${post.category} · ${post.readTime}`;
-        featureRead.href = post.url;
+        featureRead.href = resolveUrl(post.url);
         featureDate.textContent = `Published ${formatDate(post.publishDate)}`;
         featureStatus.textContent = post.published ? "Now live" : "Scheduled";
         if (latestLink) {
-          latestLink.href = post.url;
+          latestLink.href = resolveUrl(post.url);
         }
       };
 
@@ -185,5 +204,6 @@
 
       init();
     </script>
+    <script src="blog-theme.js"></script>
   </body>
 </html>
