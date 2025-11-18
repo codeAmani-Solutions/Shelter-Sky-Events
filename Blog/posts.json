@@ -1,26 +1,26 @@
 [
   {
-    "slug": "blog-event-rentals-nairobi",
-    "title": "The Cost of Event Rentals in Nairobi and How to Budget Smartly",
-    "category": "Budgeting",
-    "excerpt": "Build a layered rental budget that covers structures, styling, and contingency line items without guesswork.",
-    "publishDate": "2025-11-11T09:30:00+03:00",
-    "readTime": "6 min read",
-    "image": "../Assets/blog-event-rentals-nairobi.jpg",
-    "alt": "Shelter Sky stretch tents with lounge pods in Nairobi.",
-    "url": "blog-event-rentals-nairobi.html",
-    "published": true
-  },
-  {
     "slug": "blog-choose-right-event-rentals-nairobi",
     "title": "How to Choose the Right Event Rentals in Nairobi Without Feeling Overwhelmed",
     "category": "Planning Tips",
     "excerpt": "Use guest flow, venue logistics, and service priorities as filters so you only compare rentals that actually fit your Nairobi celebration.",
+    "publishDate": "2025-11-11T09:30:00+03:00",
+    "readTime": "6 min read",
+    "image": "../Assets/gallery/blog-event-rentals-nairobi.jpg",
+    "alt": "Shelter Sky stretch tents with lounge pods in Nairobi.",
+    "url": "blog-choose-right-event-rentals-nairobi.html",
+    "published": true
+  },
+  {
+    "slug": "blog-event-rentals-nairobi",
+    "title": "The Cost of Event Rentals in Nairobi and How to Budget Smartly",
+    "category": "Budgeting",
+    "excerpt": "Build a layered rental budget that covers structures, styling, and contingency line items without guesswork.",
     "publishDate": "2025-11-18T09:30:00+03:00",
     "readTime": "6 min read",
     "image": "../Assets/gallery/photos/Event1_Image1.JPG",
     "alt": "Stretch tent set up for a Nairobi wedding at sunset.",
-    "url": "blog-choose-right-event-rentals-nairobi.html",
+    "url": "blog-event-rentals-nairobi.html",
     "published": false
   },
   {
